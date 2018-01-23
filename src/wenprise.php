@@ -5,7 +5,6 @@
 /*----------------------------------------------------*/
 defined( 'DS' ) ? DS : define( 'DS', DIRECTORY_SEPARATOR );
 
-
 /*----------------------------------------------------*/
 // Storage path.
 /*----------------------------------------------------*/
@@ -42,6 +41,7 @@ if ( ! function_exists( 'wprs_path' ) ) {
 		return $GLOBALS[ 'wenprise.paths' ];
 	}
 }
+
 
 /*
  * Main class that bootstraps the framework.
@@ -131,6 +131,12 @@ if ( ! class_exists( 'Wenprise' ) ) {
 
 
 			/*
+			 * Set up database
+			 */
+			$this->setup();
+
+
+			/*
 			 * Project hooks.
 			 * Added in their called order.
 			 */
@@ -138,6 +144,7 @@ if ( ! class_exists( 'Wenprise' ) ) {
 			add_action( 'template_redirect', 'wp_redirect_admin_locations' );
 			add_action( 'template_redirect', [ $this, 'setRouter' ], 20 );
 		}
+
 
 		/**
 		 * Register core framework service providers.
@@ -157,6 +164,36 @@ if ( ! class_exists( 'Wenprise' ) ) {
 			foreach ( $providers as $provider ) {
 				$this->container->register( $provider );
 			}
+		}
+
+
+		protected function setup() {
+
+			/*----------------------------------------------------*/
+			// 配置 Corcel 数据库连接
+			/*----------------------------------------------------*/
+			global $table_prefix;
+			$collate = ( defined( 'DB_COLLATE' ) && DB_COLLATE ) ? DB_COLLATE : 'utf8_general_ci';
+
+			/*----------------------------------------------------*/
+			// Illuminate database
+			/*----------------------------------------------------*/
+			$capsule = new Illuminate\Database\Capsule\Manager();
+			$capsule->addConnection( [
+				'driver'    => 'mysql',
+				'host'      => DB_HOST,
+				'database'  => DB_NAME,
+				'username'  => DB_USER,
+				'password'  => DB_PASSWORD,
+				'charset'   => DB_CHARSET,
+				'collation' => $collate,
+				'prefix'    => $table_prefix,
+			] );
+			$capsule->setAsGlobal();
+			$capsule->bootEloquent();
+
+			$GLOBALS[ 'wenprise.capsule' ] = $capsule;
+
 		}
 
 
