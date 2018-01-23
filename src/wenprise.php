@@ -5,19 +5,11 @@
 /*----------------------------------------------------*/
 defined( 'DS' ) ? DS : define( 'DS', DIRECTORY_SEPARATOR );
 
-/*----------------------------------------------------*/
-// Wenprise framework textdomain.
-//
-// This constant is only used by the core plugin.
-// Developers should not try to use it into their
-// own projects.
-/*----------------------------------------------------*/
-defined( 'THEMOSIS_FRAMEWORK_TEXTDOMAIN' ) ? THEMOSIS_FRAMEWORK_TEXTDOMAIN : define( 'THEMOSIS_FRAMEWORK_TEXTDOMAIN', 'wenprise-framework' );
 
 /*----------------------------------------------------*/
 // Storage path.
 /*----------------------------------------------------*/
-defined( 'THEMOSIS_STORAGE' ) ? THEMOSIS_STORAGE : define( 'THEMOSIS_STORAGE', WP_CONTENT_DIR . DS . 'storage' );
+defined( 'WENPRISE_STORAGE' ) ? WENPRISE_STORAGE : define( 'WENPRISE_STORAGE', WP_CONTENT_DIR . DS . 'storage' );
 
 if ( ! function_exists( 'wprs_set_paths' ) ) {
 	/**
@@ -105,7 +97,7 @@ if ( ! class_exists( 'Wenprise' ) ) {
 			 */
 			$paths[ 'core' ]    = __DIR__ . DS;
 			$paths[ 'sys' ]     = __DIR__ . DS . 'src' . DS . 'Wenprise' . DS;
-			$paths[ 'storage' ] = THEMOSIS_STORAGE;
+			$paths[ 'storage' ] = WENPRISE_STORAGE;
 			wprs_set_paths( $paths );
 
 			/*

@@ -56,8 +56,13 @@ class ViewServiceProvider extends ServiceProvider {
 	 * @param \Illuminate\View\Engines\EngineResolver $resolver
 	 */
 	protected function registerBladeEngine( $engine, EngineResolver $resolver ) {
-		$container     = $this->app;
-		$storage       = $container[ 'path.storage' ] . 'views' . DS;
+		$container = $this->app;
+		$storage   = $container[ 'path.storage' ] . 'views' . DS;
+
+		if ( ! file_exists( $storage ) ) {
+			mkdir( $storage, 0755, true );
+		}
+
 		$filesystem    = $container[ 'filesystem' ];
 		$bladeCompiler = new BladeCompiler( $filesystem, $storage );
 		$this->app->instance( 'blade', $bladeCompiler );
