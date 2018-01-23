@@ -155,6 +155,8 @@ if ( ! class_exists( 'Wenprise' ) ) {
 			 * Service providers.
 			 */
 			$providers = apply_filters( 'wprs_service_providers', [
+				Wenprise\Ajax\AjaxServiceProvider::class,
+				Wenprise\Hook\HookServiceProvider::class,
 				Wenprise\Finder\FinderServiceProvider::class,
 				Wenprise\Route\RouteServiceProvider::class,
 				Wenprise\View\ViewServiceProvider::class,
