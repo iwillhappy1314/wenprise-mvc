@@ -2,6 +2,49 @@
 
 use Wenprise\Foundation\Application;
 
+
+/**
+ * 显示表单提示消息
+ *
+ * @param $message
+ */
+if ( ! function_exists( 'message' ) ) {
+    function message( $message ) {
+        if ( $message ) {
+            echo '<div class="alert alert-' . $message[ 'type' ] . '">' . $message[ 'message' ] . '</div>';
+        }
+    }
+}
+
+
+/**
+ * 生成通知消息
+ *
+ * @param $type    string 通知消息类型
+ * @param $message string 通知消息内容
+ *
+ * @return \Plasticbrain\FlashMessages\FlashMessages
+ */
+if ( ! function_exists( '' ) ) {
+    function flash( $type, $message ) {
+        $msg = new \Plasticbrain\FlashMessages\FlashMessages();
+        $msg->$type( $message );
+
+        return $msg;
+    }
+}
+
+
+/**
+ * 显示通知消息
+ */
+if ( ! function_exists( 'messages' ) ) {
+    function messages() {
+        $msg = new \Plasticbrain\FlashMessages\FlashMessages();
+        $msg->display();
+    }
+}
+
 /*
  * Helpers functions globally available.
  */
