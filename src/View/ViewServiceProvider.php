@@ -57,7 +57,7 @@ class ViewServiceProvider extends ServiceProvider {
 	 */
 	protected function registerBladeEngine( $engine, EngineResolver $resolver ) {
 		$container = $this->app;
-		$storage   = $container[ 'path.storage' ] . 'views' . DS;
+		$storage   = $container[ 'path.storage' ] . 'views';
 
 		if ( ! file_exists( $storage ) ) {
 			mkdir( $storage, 0755, true );

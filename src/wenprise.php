@@ -1,69 +1,36 @@
 <?php
 
 /*----------------------------------------------------*/
-// The directory separator.
+// 目录分隔符
 /*----------------------------------------------------*/
 defined( 'DS' ) ? DS : define( 'DS', DIRECTORY_SEPARATOR );
 
 /*----------------------------------------------------*/
-// Storage path.
+// 存储路径
 /*----------------------------------------------------*/
 defined( 'WENPRISE_STORAGE' ) ? WENPRISE_STORAGE : define( 'WENPRISE_STORAGE', WP_CONTENT_DIR . DS . 'storage' );
 
-if ( ! function_exists( 'wprs_set_paths' ) ) {
-	/**
-	 * Register paths globally.
-	 *
-	 * @param array $paths Paths to register using alias => path pairs.
-	 */
-	function wprs_set_paths( array $paths ) {
-		foreach ( $paths as $name => $path ) {
-			if ( ! isset( $GLOBALS[ 'wenprise.paths' ][ $name ] ) ) {
-				$GLOBALS[ 'wenprise.paths' ][ $name ] = realpath( $path ) . DS;
-			}
-		}
-	}
-}
-
-if ( ! function_exists( 'wprs_path' ) ) {
-	/**
-	 * Helper function to retrieve a previously registered path.
-	 *
-	 * @param string $name The path name/alias. If none is provided, returns all registered paths.
-	 *
-	 * @return string|array
-	 */
-	function wprs_path( $name = '' ) {
-		if ( ! empty( $name ) ) {
-			return $GLOBALS[ 'wenprise.paths' ][ $name ];
-		}
-
-		return $GLOBALS[ 'wenprise.paths' ];
-	}
-}
-
-
 /*
- * Main class that bootstraps the framework.
+ * 启动框架的主 Class
  */
 if ( ! class_exists( 'Wenprise' ) ) {
 	class Wenprise {
 		/**
-		 * Wenprise instance.
+		 * Wenprise 实例.
 		 *
 		 * @var \Wenprise
 		 */
 		protected static $instance = null;
 
 		/**
-		 * Framework version.
+		 * 框架版本
 		 *
 		 * @var float
 		 */
 		const VERSION = '1.3.2';
 
 		/**
-		 * The service container.
+		 * 服务容器
 		 *
 		 * @var \Wenprise\Foundation\Application
 		 */
@@ -74,7 +41,7 @@ if ( ! class_exists( 'Wenprise' ) ) {
 		}
 
 		/**
-		 * Retrieve Wenprise class instance.
+		 * 获取 Wenprise 类实例
 		 *
 		 * @return \Wenprise
 		 */
@@ -88,12 +55,11 @@ if ( ! class_exists( 'Wenprise' ) ) {
 
 
 		/**
-		 * Bootstrap the core plugin.
+		 * 启动框架
 		 */
 		protected function bootstrap() {
 			/*
-			 * Define core framework paths.
-			 * These are real paths, not URLs to the framework files.
+			 * 定义框架路径，是路径而不是 URL
 			 */
 			$paths[ 'core' ]    = __DIR__ . DS;
 			$paths[ 'sys' ]     = __DIR__ . DS . 'src' . DS . 'Wenprise' . DS;
@@ -101,19 +67,18 @@ if ( ! class_exists( 'Wenprise' ) ) {
 			wprs_set_paths( $paths );
 
 			/*
-			 * Instantiate the service container for the project.
+			 * 为项目初始化服务容器
 			 */
 			$this->container = new \Wenprise\Foundation\Application();
 
 			/*
-			 * Create a new Request instance and register it.
-			 * By providing an instance, the instance is shared.
+			 * 创建一个新的请求实例，并注册，通过提供一个实例，该实例可共享
 			 */
 			$request = \Wenprise\Foundation\Request::capture();
 			$this->container->instance( 'request', $request );
 
 			/*
-			 * Setup the facade.
+			 * 设置 facade.
 			 */
 			\Wenprise\Facades\Facade::setFacadeApplication( $this->container );
 
@@ -125,13 +90,13 @@ if ( ! class_exists( 'Wenprise' ) ) {
 			$this->container->registerAllPaths( wprs_path() );
 
 			/*
-			 * Register core service providers.
+			 * 注册全局服务提供者
 			 */
 			$this->registerProviders();
 
 
 			/*
-			 * Set up database
+			 * 设置数据库
 			 */
 			$this->setup();
 
@@ -147,12 +112,9 @@ if ( ! class_exists( 'Wenprise' ) ) {
 
 
 		/**
-		 * Register core framework service providers.
+		 * 注册核心框架服务提供者
 		 */
 		protected function registerProviders() {
-			/*
-			 * Service providers.
-			 */
 			$providers = apply_filters( 'wprs_service_providers', [
 				Wenprise\Ajax\AjaxServiceProvider::class,
 				Wenprise\Hook\HookServiceProvider::class,
@@ -176,7 +138,7 @@ if ( ! class_exists( 'Wenprise' ) ) {
 			$collate = ( defined( 'DB_COLLATE' ) && DB_COLLATE ) ? DB_COLLATE : 'utf8_general_ci';
 
 			/*----------------------------------------------------*/
-			// Illuminate database
+			// Illuminate 数据库
 			/*----------------------------------------------------*/
 			$capsule = new Illuminate\Database\Capsule\Manager();
 			$capsule->addConnection( [
@@ -198,9 +160,8 @@ if ( ! class_exists( 'Wenprise' ) ) {
 
 
 		/**
-		 * Hook into front-end routing.
-		 * Setup the router API to be executed before
-		 * theme default templates.
+		 * 挂载到前端路由
+		 * 在主题默认模版之前设置路由 API
 		 */
 		public function setRouter() {
 			if ( is_feed() || is_comment_feed() ) {
@@ -211,13 +172,12 @@ if ( ! class_exists( 'Wenprise' ) ) {
 				$request  = $this->container[ 'request' ];
 				$response = $this->container[ 'router' ]->dispatch( $request );
 
-				// We only send back the content because, headers are already defined
-				// by WordPress internals.
+				// 因为 WordPress 已经发送了headers，所以在这里，我们只发送内容
 				$response->sendContent();
 				die();
 			} catch ( \Symfony\Component\HttpKernel\Exception\NotFoundHttpException $exception ) {
 				/*
-				 * Fallback to WordPress templates.
+				 * 退回到 WordPress 模版
 				 */
 			}
 		}
@@ -227,6 +187,6 @@ if ( ! class_exists( 'Wenprise' ) ) {
 }
 
 /*
- * Globally register the instance.
+ * 全局注册实例
  */
 $GLOBALS[ 'wenprise' ] = Wenprise::instance();
