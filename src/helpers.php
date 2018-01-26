@@ -2,13 +2,15 @@
 
 use Wenprise\Foundation\Application;
 
-
-/**
- * 显示表单提示消息
- *
- * @param $message
- */
 if ( ! function_exists( 'message' ) ) {
+	/**
+	 * 显示表单提示消息
+	 *
+	 * @param $message
+	 *
+	 * @deprecated
+	 */
+
 	function message( $message ) {
 		if ( $message ) {
 			echo '<div class="alert alert-' . $message[ 'type' ] . '">' . $message[ 'message' ] . '</div>';
@@ -24,6 +26,8 @@ if ( ! function_exists( 'message' ) ) {
  * @param $message string 通知消息内容
  *
  * @return \Plasticbrain\FlashMessages\FlashMessages
+ *
+ * @deprecated
  */
 if ( ! function_exists( '' ) ) {
 	function flash( $type, $message ) {
@@ -37,6 +41,8 @@ if ( ! function_exists( '' ) ) {
 
 /**
  * 显示通知消息
+ *
+ * @deprecated
  */
 if ( ! function_exists( 'messages' ) ) {
 	function messages() {
