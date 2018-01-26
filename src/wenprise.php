@@ -78,32 +78,27 @@ if ( ! class_exists( 'Wenprise' ) ) {
 			$this->container->instance( 'request', $request );
 
 			/*
-			 * 设置 facade.
+			 * 设置 Facade 应用.
 			 */
 			\Wenprise\Facades\Facade::setFacadeApplication( $this->container );
 
 			/*
-			 * Register into the container, the registered paths.
-			 * Normally at this stage, plugins should have
-			 * their paths registered into the $GLOBALS array.
+			 * 注册路径到到容器，一般在这个阶段、插件应该注册他们的路径到 $GLOBALS 数组中
 			 */
 			$this->container->registerAllPaths( wprs_path() );
 
-			/*
-			 * 注册全局服务提供者
+
+			/**
+			 * 注册启动对应的服务
 			 */
 			$this->registerProviders();
+			$this->registerClassAlias();
+			$this->registerEloquent();
 
 
 			/*
-			 * 设置数据库
-			 */
-			$this->setup();
-
-
-			/*
-			 * Project hooks.
-			 * Added in their called order.
+			 * 项目 hooks.
+			 * 按他们的调用顺序添加
 			 */
 			add_action( 'template_redirect', 'redirect_canonical' );
 			add_action( 'template_redirect', 'wp_redirect_admin_locations' );
@@ -129,7 +124,33 @@ if ( ! class_exists( 'Wenprise' ) ) {
 		}
 
 
-		protected function setup() {
+		/**
+		 * 注册类别名，也就是 Facades
+		 */
+		protected function registerClassAlias() {
+			$aliases = [
+				'Blade'   => Wenprise\Facades\Blade::class,
+				'Request' => Wenprise\Facades\Request::class,
+				'Route'   => Wenprise\Facades\Route::class,
+				'View'    => Wenprise\Facades\View::class,
+				'Input'   => Wenprise\Facades\Input::class,
+			];
+
+			/*
+			 * 主题别名
+			 */
+			if ( ! empty( $aliases ) && is_array( $aliases ) ) {
+				foreach ( $aliases as $alias => $fullname ) {
+					class_alias( $fullname, $alias );
+				}
+			}
+		}
+
+
+		/**
+		 * 设置数据库连接
+		 */
+		protected function registerEloquent() {
 
 			/*----------------------------------------------------*/
 			// 配置 Corcel 数据库连接
