@@ -13,6 +13,11 @@ class WenpriseTwigExtension extends Twig_Extension
      */
     protected $container;
 
+	/**
+	 * WenpriseTwigExtension constructor.
+	 *
+	 * @param \Wenprise\Foundation\Application $container
+	 */
     public function __construct(Application $container)
     {
         $this->container = $container;

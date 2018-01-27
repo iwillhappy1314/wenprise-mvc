@@ -64,7 +64,6 @@ class Application extends Container
      * @param array                                       $options
      * @param bool                                        $force
      *
-     * @return \Wenprise\Foundation\ServiceProvider
      */
     public function register($provider, array $options = [], $force = false)
     {
