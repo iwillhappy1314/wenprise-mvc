@@ -110,6 +110,7 @@ if ( ! class_exists( 'Wenprise' ) ) {
 		 */
 		protected function registerProviders() {
 			$providers = apply_filters( 'wprs_service_providers', [
+				Wenprise\Kernel\KernelServiceProvider::class,
 				Wenprise\Ajax\AjaxServiceProvider::class,
 				Wenprise\Flash\FlashServiceProvider::class,
 				Wenprise\Hook\HookServiceProvider::class,
