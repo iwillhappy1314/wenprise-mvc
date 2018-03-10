@@ -2,6 +2,36 @@
 
 namespace Wenprise\Facades;
 
+/**
+ *
+ * @method static method
+ * @method static root
+ * @method static url
+ * @method static fullUrl
+ * @method static fullUrlWithQuery
+ * @method static path
+ * @method static decodedPath
+ * @method static segments
+ * @method static is
+ * @method static routeIs
+ * @method static fullUrlIs
+ * @method static ajax
+ * @method static pjax
+ * @method static secure
+ * @method static ip
+ * @method static ips
+ * @method static userAgent
+ * @method static merge(array $input)
+ * @method static replace(array $input)
+ * @method static json(array $input)
+ * @method static getInputSource
+ * @method static session
+ * @method static user
+ * @method static route
+ * @method static fingerprint
+ * @method static setJson($json)
+ * @method static toArray
+ */
 class Input extends Facade
 {
     /**
