@@ -2,6 +2,14 @@
 
 namespace Wenprise\Facades;
 
+
+/**
+ * @method add($hook, $callback, $priority = 10, $accepted_args = 3)
+ * @method remove($hook, $priority = 10, $callback = null)
+ * @method run($hook, $args = null)
+ * @method exists($hook)
+ * @method getCallback($hook)
+ */
 class Filter extends Facade
 {
     /**
