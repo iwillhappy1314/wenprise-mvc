@@ -2,6 +2,10 @@
 
 namespace Wenprise\Facades;
 
+
+/**
+ * @method static listen($name, $callback, $logged = 'both')
+ */
 class Ajax extends Facade
 {
     /**
