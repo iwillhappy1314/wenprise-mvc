@@ -2,6 +2,15 @@
 
 namespace Wenprise\Facades;
 
+
+/**
+ * @method static share($key, $value = null)
+ * @method static file($path, $data = [], $mergeData = [])
+ * @method static make($view, $data = [], $mergeData = [])
+ * @method static first(array $views, $data = [], $mergeData = [])
+ * @method static exists($view)
+ * @method static shared($key, $default = null)
+ */
 class View extends Facade
 {
     /**
