@@ -60,6 +60,9 @@ if ( ! function_exists( 'wprs_set_paths' ) ) {
 	 */
 	function wprs_set_paths( array $paths ) {
 		foreach ( $paths as $name => $path ) {
+			if ( ! realpath( $path ) ) {
+				wp_mkdir_p( $path );
+			}
 			if ( ! isset( $GLOBALS[ 'wenprise.paths' ][ $name ] ) ) {
 				$GLOBALS[ 'wenprise.paths' ][ $name ] = realpath( $path ) . DS;
 			}
