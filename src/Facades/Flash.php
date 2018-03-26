@@ -4,18 +4,18 @@ namespace Wenprise\Facades;
 
 
 /**
- * @method info($message, $redirectUrl=null, $sticky=false)
- * @method success($message, $redirectUrl=null, $sticky=false)
- * @method warning($message, $redirectUrl=null, $sticky=false)
- * @method error($message, $redirectUrl=null, $sticky=false)
- * @method sticky($message=true, $redirectUrl=null, $type)
- * @method add($message, $type, $redirectUrl=null, $sticky=false)
- * @method display($types=null, $print=true)
- * @method hasErrors()
- * @method hasMessages($type=null)
- * @method formatMessage($msgDataArray, $type)
- * @method doRedirect()
- * @method clear($types=[])
+ * @method static info( $message, $redirectUrl = null, $sticky = false )
+ * @method static success( $message, $redirectUrl = null, $sticky = false )
+ * @method static warning( $message, $redirectUrl = null, $sticky = false )
+ * @method static error( $message, $redirectUrl = null, $sticky = false )
+ * @method static sticky( $message = true, $redirectUrl = null, $type )
+ * @method static add( $message, $type, $redirectUrl = null, $sticky = false )
+ * @method static display( $types = null, $print = true )
+ * @method static hasErrors()
+ * @method static hasMessages( $type = null )
+ * @method static formatMessage( $msgDataArray, $type )
+ * @method static doRedirect()
+ * @method static clear( $types = [] )
  */
 class Flash extends Facade {
 	/**
