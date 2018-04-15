@@ -4,7 +4,7 @@ namespace Wenprise\Facades;
 
 
 /**
- * @method static void get(string $uri, \Closure|array|string $action)
+ * @method static void get(string $uri,  \Closure|array|string $action)
  * @method static void post(string $uri, \Closure|array|string $action)
  * @method static void put(string $uri, \Closure|array|string $action)
  * @method static void delete(string $uri, \Closure|array|string $action)
