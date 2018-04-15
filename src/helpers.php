@@ -139,11 +139,13 @@ if ( ! function_exists( 'app' ) ) {
 	 * @return mixed
 	 */
 	function app( $abstract = null, array $parameters = [] ) {
+		$application = isset( $GLOBALS[ 'wenprise' ] ) ? $GLOBALS[ 'wenprise' ]->container : Application::getInstance();
+
 		if ( is_null( $abstract ) ) {
-			return Application::getInstance();
+			return $application;
 		}
 
-		return Application::getInstance()->make( $abstract, $parameters );
+		return $application->make( $abstract, $parameters );
 	}
 }
 
