@@ -2,7 +2,6 @@
 
 namespace Wenprise\Page;
 
-use Illuminate\View\View;
 use Wenprise\Foundation\DataContainer;
 use Wenprise\Hook\IHook;
 
@@ -37,8 +36,8 @@ class PageBuilder {
 	/**
 	 * Build a Page instance.
 	 *
-	 * @param DataContainer         $datas  The page properties.
-	 * @param IHook                 $action The Action builder class.
+	 * @param DataContainer $datas  The page properties.
+	 * @param IHook         $action The Action builder class.
 	 */
 	public function __construct( DataContainer $datas, IHook $action ) {
 		$this->datas  = $datas;
@@ -49,7 +48,6 @@ class PageBuilder {
 	 * @param string                $slug   The page slug name.
 	 * @param string                $title  The page display title.
 	 * @param string                $parent The parent's page slug if a subpage.
-	 * @param \Illuminate\View\View $view   The page main view file.
 	 *
 	 * @throws PageException
 	 *

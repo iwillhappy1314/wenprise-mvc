@@ -8,7 +8,7 @@ interface IHook
      * Add event using the WordPress hooks.
      *
      * @param string $hook The hook name.
-     * @param \Closure|string $callback Using a class method like so "MyClass@method"
+     * @param \Closure|string|array $callback Using a class method like so "MyClass@method"
      * @param int $priority
      * @param int $accepted_args
      *

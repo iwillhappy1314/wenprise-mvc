@@ -327,6 +327,7 @@ class Asset implements IAsset {
 				if ( isset( static::$instances[ 'front' ] ) && ! empty( static::$instances[ 'front' ] ) ) {
 					foreach ( static::$instances[ 'front' ] as $asset ) {
 						// Check if asset has not yet been called...
+						/** @var Asset $asset */
 						if ( isset( static::$instantiated[ 'front' ][ $asset->getKey() ] ) ) {
 							return;
 						}
@@ -343,6 +344,7 @@ class Asset implements IAsset {
 				if ( isset( static::$instances[ 'admin' ] ) && ! empty( static::$instances[ 'admin' ] ) ) {
 					foreach ( static::$instances[ 'admin' ] as $asset ) {
 						// Check if asset has not yet been called...
+						/** @var Asset $asset */
 						if ( isset( static::$instantiated[ 'admin' ][ $asset->getKey() ] ) ) {
 							return;
 						}
@@ -359,6 +361,7 @@ class Asset implements IAsset {
 				if ( isset( static::$instances[ 'login' ] ) && ! empty( static::$instances[ 'login' ] ) ) {
 					foreach ( static::$instances[ 'login' ] as $asset ) {
 						// Check if asset has not yet been called...
+						/** @var Asset $asset */
 						if ( isset( static::$instantiated[ 'login' ][ $asset->getKey() ] ) ) {
 							return;
 						}
@@ -374,6 +377,7 @@ class Asset implements IAsset {
 				if ( isset( static::$instances[ 'customizer' ] ) && ! empty( static::$instances[ 'customizer' ] ) ) {
 					foreach ( static::$instances[ 'customizer' ] as $asset ) {
 						// Check if asset has not yet been called...
+						/** @var Asset $asset */
 						if ( isset( static::$instantiated[ 'customizer' ][ $asset->getKey() ] ) ) {
 							return;
 						}

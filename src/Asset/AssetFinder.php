@@ -41,7 +41,10 @@ class AssetFinder extends Finder
      * @param string $path
      *
      * @return string
+     *
+     * @throws \Wenprise\Asset\AssetException
      */
+
     public function find($path)
     {
         // Check if asset is external.
