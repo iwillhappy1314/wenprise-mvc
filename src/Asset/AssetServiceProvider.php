@@ -11,6 +11,7 @@ class AssetServiceProvider extends ServiceProvider
         $this->app->singleton('asset.finder', function () {
             return new AssetFinder();
         });
+
         $this->app->singleton('asset', function ($container) {
             return new AssetFactory($container['asset.finder'], $container);
         });
