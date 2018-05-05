@@ -2,6 +2,9 @@
 
 namespace Wenprise\Facades;
 
+/**
+ * @method static get($name)
+ */
 class Config extends Facade
 {
     /**
