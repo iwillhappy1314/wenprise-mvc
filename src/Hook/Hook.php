@@ -9,7 +9,7 @@ abstract class Hook implements IHook
     /**
      * The service container.
      *
-     * @var \Themosis\Foundation\Application
+     * @var \Wenprise\Foundation\Application
      */
     protected $container;
 
@@ -34,16 +34,20 @@ abstract class Hook implements IHook
      * Wrapper of the "add_action" or "add_filter" functions. Allows
      * a developer to specify a controller class or closure.
      *
-     * @param string                $hook          The action hook name.
-     * @param \Closure|string|array $callback      The closure, function name or class to use, array containing an instance and its public method name.
-     * @param int                   $priority      The priority order for this action.
-     * @param int                   $accepted_args Default number of accepted arguments.
+     * @param string|array $hooks The action hook name.
+     * @param \Closure|string|array $callback The closure, function name or class to use, array containing an instance and its public method name.
+     * @param int $priority The priority order for this action.
+     * @param int $accepted_args Default number of accepted arguments.
      *
-     * @return \Themosis\Hook\ActionBuilder
+     * @return $this|mixed
+     *
+     * @throws \Wenprise\Hook\HookException
      */
-    public function add($hook, $callback, $priority = 10, $accepted_args = 3)
+    public function add($hooks, $callback, $priority = 10, $accepted_args = 3)
     {
-        $this->addHookEvent($hook, $callback, $priority, $accepted_args);
+        foreach ((array) $hooks as $hook) {
+            $this->addHookEvent($hook, $callback, $priority, $accepted_args);
+        }
 
         return $this;
     }
@@ -57,11 +61,7 @@ abstract class Hook implements IHook
      */
     public function exists($hook)
     {
-        if (array_key_exists($hook, $this->hooks)) {
-            return true;
-        }
-
-        return false;
+        return array_key_exists($hook, $this->hooks);
     }
 
     /**
@@ -69,7 +69,7 @@ abstract class Hook implements IHook
      *
      * @param string $hook The hook name.
      *
-     * @return array|bool
+     * @return array|null
      */
     public function getCallback($hook)
     {
@@ -77,7 +77,7 @@ abstract class Hook implements IHook
             return $this->hooks[$hook];
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -94,7 +94,7 @@ abstract class Hook implements IHook
         // If $callback is null, it means we have chained the methods to
         // the action/filter instance. If the instance has no callback, return false.
         if (is_null($callback)) {
-            if (!$callback = $this->getCallback($hook)) {
+            if (! $callback = $this->getCallback($hook)) {
                 return false;
             }
 
@@ -112,12 +112,14 @@ abstract class Hook implements IHook
     /**
      * Add an event for the specified hook.
      *
-     * @param string                $hook
-     * @param \Closure|string|array $callback      The closure, function name or class to use, array containing an instance and its public method name.
-     * @param int                   $priority      The priority order.
-     * @param int                   $accepted_args The default number of accepted arguments.
+     * @param string $hook
+     * @param \Closure|string|array $callback The closure, function name or class to use, array containing an instance and its public method name.
+     * @param int $priority The priority order.
+     * @param int $accepted_args The default number of accepted arguments.
      *
      * @return \Closure|array|string
+     *
+     * @throws \Wenprise\Hook\HookException
      */
     protected function addHookEvent($hook, $callback, $priority, $accepted_args)
     {
@@ -142,10 +144,12 @@ abstract class Hook implements IHook
      *
      * @param string $hook
      * @param string $class
-     * @param int    $priority
-     * @param int    $accepted_args
+     * @param int $priority
+     * @param int $accepted_args
      *
      * @return array
+     *
+     * @throws \Wenprise\Hook\HookException
      */
     protected function addClassEvent($hook, $class, $priority, $accepted_args)
     {
@@ -196,10 +200,10 @@ abstract class Hook implements IHook
     /**
      * Add an event for the specified hook.
      *
-     * @param string          $name
+     * @param string $name
      * @param \Closure|string $callback
-     * @param int             $priority
-     * @param int             $accepted_args
+     * @param int $priority
+     * @param int $accepted_args
      *
      * @throws HookException
      */
