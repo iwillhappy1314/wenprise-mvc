@@ -4,6 +4,7 @@ namespace Wenprise\Page;
 
 use Wenprise\Foundation\DataContainer;
 use Wenprise\Hook\IHook;
+use Illuminate\View\View;
 
 class PageBuilder
 {
@@ -13,6 +14,13 @@ class PageBuilder
      * @var DataContainer
      */
     protected $datas;
+
+    /**
+     * The page view file.
+     *
+     * @var \Illuminate\View\View
+     */
+    protected $view;
 
     /**
      * The page sections.
@@ -36,47 +44,55 @@ class PageBuilder
     /**
      * Build a Page instance.
      *
-     * @param DataContainer $datas The page properties.
-     * @param IHook $action The Action builder class.
+     * @param DataContainer         $datas  The page properties.
+     * @param \Illuminate\View\View $view   The page view file.
+     * @param IHook                 $action The Action builder class.
      */
-    public function __construct(DataContainer $datas, IHook $action)
+    public function __construct( DataContainer $datas, View $view = null, IHook $action )
     {
-        $this->datas = $datas;
+        $this->datas  = $datas;
+        $this->view   = $view;
         $this->action = $action;
     }
 
     /**
-     * @param string $slug The page slug name.
-     * @param string $title The page display title.
-     * @param string $parent The parent's page slug if a subpage.
+     * @param string                $slug   The page slug name.
+     * @param string                $title  The page display title.
+     * @param string                $parent The parent's page slug if a subpage.
+     * @param \Illuminate\View\View $view   The page main view file.
      *
      * @throws PageException
      *
      * @return \Wenprise\Page\PageBuilder
      */
-    public function make($slug, $title, $parent = null)
+    public function make( $slug, $title, $parent = null, View $view = null )
     {
-        $params = compact('slug', 'title');
+        $params = compact( 'slug', 'title' );
 
-        foreach ($params as $name => $param) {
-            if (! is_string($param)) {
-                throw new PageException('Invalid page parameter "'.$name.'"');
+        foreach ( $params as $name => $param ) {
+            if ( ! is_string( $param ) ) {
+                throw new PageException( 'Invalid page parameter "' . $name . '"' );
             }
         }
 
+        // Check the view file.
+        if ( ! is_null( $view ) ) {
+            $this->view = $view;
+        }
+
         // Set the page properties.
-        $this->datas['slug'] = $slug;
-        $this->datas['title'] = $title;
-        $this->datas['parent'] = $parent;
-        $this->datas['args'] = [
+        $this->datas[ 'slug' ]   = $slug;
+        $this->datas[ 'title' ]  = $title;
+        $this->datas[ 'parent' ] = $parent;
+        $this->datas[ 'args' ]   = [
             'capability' => 'manage_options',
-            'icon' => '',
-            'position' => null,
-            'tabs' => true,
-            'menu' => $title,
-            'function' => '',
+            'icon'       => '',
+            'position'   => null,
+            'tabs'       => true,
+            'menu'       => $title,
+            'function'   => '',
         ];
-        $this->datas['rules'] = [];
+        $this->datas[ 'rules' ]  = [];
 
         return $this;
     }
@@ -90,15 +106,16 @@ class PageBuilder
      *
      * @return \Wenprise\Page\PageBuilder
      */
-    public function set(array $params = [])
+    public function set( array $params = [] )
     {
-        $this->datas['args'] = array_merge($this->datas['args'], $params);
+        $this->datas[ 'args' ] = array_merge( $this->datas[ 'args' ], $params );
 
         // Trigger the 'admin_menu' event in order to register the page.
-        $this->action->add('admin_menu', [$this, 'build']);
+        $this->action->add( 'admin_menu', [ $this, 'build' ] );
 
         return $this;
     }
+
 
     /**
      * Triggered by the 'admin_menu' action event.
@@ -106,12 +123,30 @@ class PageBuilder
      */
     public function build()
     {
-        if (! is_null($this->datas['parent'])) {
-            add_submenu_page($this->datas['parent'], $this->datas['title'], $this->datas['args']['menu'], $this->datas['args']['capability'], $this->datas['slug'], $this->datas['args']['function']);
+        if ( ! is_null( $this->datas[ 'parent' ] ) ) {
+            add_submenu_page( $this->datas[ 'parent' ], $this->datas[ 'title' ], $this->datas[ 'args' ][ 'menu' ], $this->datas[ 'args' ][ 'capability' ], $this->datas[ 'slug' ], [
+                $this,
+                'displayPage',
+            ] );
         } else {
-            add_menu_page($this->datas['title'], $this->datas['args']['menu'], $this->datas['args']['capability'], $this->datas['slug'], $this->datas['args']['function'], $this->datas['args']['icon'], $this->datas['args']['position']);
+            add_menu_page( $this->datas[ 'title' ], $this->datas[ 'args' ][ 'menu' ], $this->datas[ 'args' ][ 'capability' ], $this->datas[ 'slug' ], [
+                $this,
+                'displayPage',
+            ], $this->datas[ 'args' ][ 'icon' ], $this->datas[ 'args' ][ 'position' ] );
         }
     }
+
+
+    /**
+     * Triggered by the 'add_menu_page' or 'add_submenu_page'.
+     */
+    public function displayPage()
+    {
+        // Share the page instance to the view.
+        $this->with( '__page', $this );
+        echo $this->view->render();
+    }
+
 
     /**
      * Return a page property value.
@@ -120,8 +155,26 @@ class PageBuilder
      *
      * @return mixed
      */
-    public function get($property = null)
+    public function get( $property = null )
     {
-        return (isset($this->datas[$property])) ? $this->datas[$property] : '';
+        return ( isset( $this->datas[ $property ] ) ) ? $this->datas[ $property ] : '';
     }
+
+
+    /**
+     * Allow a user to pass custom datas to
+     * the page view instance.
+     *
+     * @param string|array $key
+     * @param mixed        $value
+     *
+     * @return \Wenprise\Page\PageBuilder
+     */
+    public function with( $key, $value = null )
+    {
+        $this->view->with( $key, $value );
+
+        return $this;
+    }
+
 }
