@@ -1,6 +1,6 @@
 <?php
 
-namespace Themosis\Config;
+namespace Wenprise\Config;
 
 use Exception;
 

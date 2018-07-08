@@ -5,7 +5,7 @@ namespace Wenprise\Facades;
 use Wenprise\Page\PageBuilder;
 
 /**
- * @method static PageBuilder make( $slug, $title, $parent = null )
+ * @method static PageBuilder make( $slug, $title, $parent = null, $view )
  * @method static PageBuilder set( array $params = [] )
  * @method static PageBuilder build()
  * @method static PageBuilder displayPage()

@@ -94,7 +94,7 @@ class AssetFactory
          * Check the asset type is defined.
          */
         if (empty($t)) {
-            return new \WP_Error('asset', sprintf('%s: %s. %s', __("Can't load your asset", THEMOSIS_FRAMEWORK_TEXTDOMAIN), $handle, __('If your asset has no file extension, please provide the type parameter.', THEMOSIS_FRAMEWORK_TEXTDOMAIN)));
+            return new \WP_Error('asset', sprintf('%s: %s. %s', __("Can't load your asset", WENPRISE_FRAMEWORK_TEXTDOMAIN), $handle, __('If your asset has no file extension, please provide the type parameter.', WENPRISE_FRAMEWORK_TEXTDOMAIN)));
         }
 
         // Register the asset into the service container

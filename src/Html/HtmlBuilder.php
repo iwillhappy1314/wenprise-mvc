@@ -38,7 +38,7 @@ class HtmlBuilder
      */
     public function entities($value)
     {
-        $charset = defined('THEMOSIS_CHARSET') ? THEMOSIS_CHARSET : get_bloginfo('charset');
+        $charset = defined('WENPRISE_CHARSET') ? WENPRISE_CHARSET : get_bloginfo('charset');
 
         return htmlentities($value, ENT_QUOTES, $charset, false);
     }
