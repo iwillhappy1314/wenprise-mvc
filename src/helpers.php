@@ -241,3 +241,40 @@ if (! function_exists('meta')) {
         return get_metadata($context, $id, $key, $single);
     }
 }
+
+
+/**
+ * 渲染 Knp Menu 生成的菜单
+ *
+ * @param $menu
+ *
+ * @return mixed|string
+ */
+if ( ! function_exists( 'wprs_render_menu' ) ) {
+    function wprs_render_menu( $menus )
+    {
+        $current_link = ( isset( $_SERVER[ 'HTTPS' ] ) ? "https" : "http" ) . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+        foreach ( $menus as $m ) {
+            $m->setLinkAttribute( 'class', 'c-menu__link' );
+            if ( $m->getUri() == $current_link ) {
+                $m->setCurrent( true );
+                $m->setLinkAttribute( 'class', 'c-menu__link is-active' );
+            }
+        }
+
+        $renderer = new ListRenderer( new \Knp\Menu\Matcher\Matcher() );
+        $menus    = $renderer->render( $menus, [
+            'currentClass'  => 'is-active',
+            'branch_class'  => 'c-menu__item',
+            'leaf_class'    => 'c-menu__item',
+            'ancestorClass' => 'c-menu__item',
+        ] );
+
+        $menus = str_replace( '&lt;', '<', $menus );
+        $menus = str_replace( '&gt;', '>', $menus );
+        $menus = str_replace( '&quot;', '"', $menus );
+
+        return $menus;
+    }
+}
