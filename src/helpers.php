@@ -40,6 +40,22 @@ if (! function_exists('flash')) {
 }
 
 /**
+ * 在后台显示通知消息
+ *
+ * @param string $type
+ * @param string $message
+ */
+if (! function_exists('admin_flash')) {
+    function admin_flash($type, $message)
+    {
+        add_action('admin_notices', function () use ($type, $message) {
+            $class = 'notice notice-'.$type;
+            printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));
+        });
+    }
+}
+
+/**
  * 显示通知消息
  *
  * @deprecated
@@ -242,7 +258,6 @@ if (! function_exists('meta')) {
     }
 }
 
-
 /**
  * 渲染 Knp Menu 生成的菜单
  *
@@ -250,30 +265,27 @@ if (! function_exists('meta')) {
  *
  * @return mixed|string
  */
-if ( ! function_exists( 'wprs_render_menu' ) ) {
-    function wprs_render_menu( $menus )
+if (! function_exists('wprs_render_menu')) {
+    function wprs_render_menu($menus)
     {
-        $current_link = ( isset( $_SERVER[ 'HTTPS' ] ) ? "https" : "http" ) . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $current_link = (isset($_SERVER['HTTPS']) ? "https" : "http")."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
-        foreach ( $menus as $m ) {
-            $m->setLinkAttribute( 'class', 'c-menu__link' );
-            if ( $m->getUri() == $current_link ) {
-                $m->setCurrent( true );
-                $m->setLinkAttribute( 'class', 'c-menu__link is-active' );
+        foreach ($menus as $m) {
+            $m->setLinkAttribute('class', 'c-menu__link');
+            if ($m->getUri() == $current_link) {
+                $m->setCurrent(true);
+                $m->setLinkAttribute('class', 'c-menu__link is-active');
             }
         }
 
-        $renderer = new ListRenderer( new \Knp\Menu\Matcher\Matcher() );
-        $menus    = $renderer->render( $menus, [
-            'currentClass'  => 'is-active',
-            'branch_class'  => 'c-menu__item',
-            'leaf_class'    => 'c-menu__item',
-            'ancestorClass' => 'c-menu__item',
-        ] );
+        $renderer = new ListRenderer(new \Knp\Menu\Matcher\Matcher());
+        $menus = $renderer->render($menus, [
+            'currentClass' => 'is-active', 'branch_class' => 'c-menu__item', 'leaf_class' => 'c-menu__item', 'ancestorClass' => 'c-menu__item',
+        ]);
 
-        $menus = str_replace( '&lt;', '<', $menus );
-        $menus = str_replace( '&gt;', '>', $menus );
-        $menus = str_replace( '&quot;', '"', $menus );
+        $menus = str_replace('&lt;', '<', $menus);
+        $menus = str_replace('&gt;', '>', $menus);
+        $menus = str_replace('&quot;', '"', $menus);
 
         return $menus;
     }
