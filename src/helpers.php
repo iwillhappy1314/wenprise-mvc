@@ -28,8 +28,6 @@ if (! function_exists('message')) {
  * @param $sticky bool 是否固定
  *
  * @return \Plasticbrain\FlashMessages\FlashMessages
- *
- * @deprecated
  */
 if (! function_exists('flash')) {
     function flash($type, $message, $url = null, $sticky = false)
