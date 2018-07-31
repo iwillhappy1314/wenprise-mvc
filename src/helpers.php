@@ -24,16 +24,18 @@ if (! function_exists('message')) {
  *
  * @param $type    string 通知消息类型
  * @param $message string 通知消息内容
+ * @param $url string 跳转 URL
+ * @param $sticky bool 是否固定
  *
  * @return \Plasticbrain\FlashMessages\FlashMessages
  *
  * @deprecated
  */
 if (! function_exists('flash')) {
-    function flash($type, $message)
+    function flash($type, $message, $url = null, $sticky = false)
     {
         $msg = new \Plasticbrain\FlashMessages\FlashMessages();
-        $msg->$type($message);
+        $msg->$type($message, $url, $sticky);
 
         return $msg;
     }
