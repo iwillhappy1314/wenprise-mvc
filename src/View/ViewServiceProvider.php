@@ -8,12 +8,9 @@ use Illuminate\View\Engines\EngineResolver;
 use Illuminate\View\Engines\PhpEngine;
 use Illuminate\View\Factory;
 use Wenprise\Foundation\ServiceProvider;
-use Wenprise\View\Engines\TwigEngine;
-use Wenprise\View\Extensions\WenpriseTwigExtension;
 
 class ViewServiceProvider extends ServiceProvider {
 	public function register() {
-		$this->registerTwigEnvironment();
 		$this->registerEngineResolver();
 		$this->registerViewFactory();
 		$this->registerLoop();
@@ -29,7 +26,7 @@ class ViewServiceProvider extends ServiceProvider {
 			$resolver = new EngineResolver();
 
 			// Register the engines.
-			foreach ( [ 'php', 'blade', 'twig' ] as $engine ) {
+			foreach ( [ 'php', 'blade' ] as $engine ) {
 				$serviceProvider->{'register' . ucfirst( $engine ) . 'Engine'}( $engine, $resolver );
 			}
 
@@ -71,54 +68,6 @@ class ViewServiceProvider extends ServiceProvider {
 		} );
 	}
 
-	/**
-	 * Register the Twig engine to the EngineResolver.
-	 *
-	 * @param string         $engine
-	 * @param EngineResolver $resolver
-	 */
-	protected function registerTwigEngine( $engine, EngineResolver $resolver ) {
-		$container = $this->app;
-
-		$resolver->register( $engine, function () use ( $container ) {
-
-			// Set the loader main namespace (paths).
-			$container[ 'twig.loader' ]->setPaths( $container[ 'view.finder' ]->getPaths() );
-
-			return new TwigEngine( $container[ 'twig' ], $container[ 'view.finder' ] );
-		} );
-	}
-
-	/**
-	 * Register Twig environment and its loader.
-	 */
-	protected function registerTwigEnvironment() {
-		$container = $this->app;
-
-		// Twig Filesystem loader.
-		$container->singleton( 'twig.loader', function () {
-			return new \Twig_Loader_Filesystem();
-		} );
-
-		// Twig
-		$container->singleton( 'twig', function ( $container ) {
-			return new \Twig_Environment( $container[ 'twig.loader' ], [
-				'auto_reload' => true,
-				'cache'       => $container[ 'path.storage' ] . 'twig',
-			] );
-		} );
-
-		// Add the dump Twig extension.
-		$container[ 'twig' ]->addExtension( new \Twig_Extension_Debug() );
-
-		// Check if debug constant exists and set to true.
-		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-			$container[ 'twig' ]->enableDebug();
-		}
-
-		// Provides WordPress functions and more to Twig templates.
-		$container[ 'twig' ]->addExtension( new WenpriseTwigExtension( $container ) );
-	}
 
 	/**
 	 * Register the view factory. The factory is
@@ -127,7 +76,7 @@ class ViewServiceProvider extends ServiceProvider {
 	protected function registerViewFactory() {
 		// Register the View Finder first.
 		$this->app->singleton( 'view.finder', function ( $container ) {
-			return new ViewFinder( $container[ 'filesystem' ], [], [ 'blade.php', 'scout.php', 'twig', 'php' ] );
+			return new ViewFinder( $container[ 'filesystem' ], [], [ 'blade.php', 'scout.php', 'php' ] );
 		} );
 
 		$this->app->singleton( 'view', function ( $container ) {
@@ -136,8 +85,6 @@ class ViewServiceProvider extends ServiceProvider {
 			$factory->setContainer( $container );
 			// Tell the factory to also handle the scout template for backwards compatibility.
 			$factory->addExtension( 'scout.php', 'blade' );
-			// Tell the factory to handle twig extension files and assign them to the twig engine.
-			$factory->addExtension( 'twig', 'twig' );
 
 			// We will also set the container instance on this view environment since the
 			// view composers may be classes registered in the container, which allows
