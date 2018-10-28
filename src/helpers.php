@@ -278,7 +278,7 @@ if (! function_exists('wprs_render_menu')) {
             }
         }
 
-        $renderer = new ListRenderer(new \Knp\Menu\Matcher\Matcher());
+        $renderer = new \Knp\Menu\Renderer\ListRenderer(new \Knp\Menu\Matcher\Matcher());
         $menus = $renderer->render($menus, [
             'currentClass' => 'is-active', 'branch_class' => 'c-menu__item', 'leaf_class' => 'c-menu__item', 'ancestorClass' => 'c-menu__item',
         ]);
