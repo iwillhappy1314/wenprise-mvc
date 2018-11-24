@@ -290,3 +290,13 @@ if (! function_exists('wprs_render_menu')) {
         return $menus;
     }
 }
+
+/**
+ * 使用排除法判断是否为 APP 页面
+ */
+if (! function_exists('wprs_is_app')) {
+    function wprs_is_app()
+    {
+        return ! (is_singular() || is_archive() || is_search() || is_home() || is_front_page() || is_front_page() || is_front_page());
+    }
+}
