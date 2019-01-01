@@ -271,6 +271,8 @@ if (! function_exists('wprs_render_menu')) {
         $current_link = (isset($_SERVER['HTTPS']) ? "https" : "http")."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
         foreach ($menus as $m) {
+
+            /** @var \Knp\Menu\MenuItem $m */
             $m->setLinkAttribute('class', 'c-menu__link');
             if ($m->getUri() == $current_link) {
                 $m->setCurrent(true);
