@@ -12,7 +12,7 @@ class PageServiceProvider extends ServiceProvider
 
             $data = new PageData();
 
-            return new PageBuilder($data, null, $container['action']);
+            return new PageBuilder($data,  $container['action'], null);
         });
     }
 }

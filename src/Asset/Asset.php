@@ -128,14 +128,14 @@ class Asset implements IAsset {
 		if ( is_string( $version ) ) {
 			if ( empty( $version ) ) {
 				// Passing empty string is equivalent to set it to null.
-				return;
+				return false;
 			}
 
 			// Return the defined string version.
 			return $version;
 		} elseif ( is_null( $version ) ) {
 			// Return null.
-			return;
+			return false;
 		}
 
 		// Version can only be a string or null. If anything else, return false.x

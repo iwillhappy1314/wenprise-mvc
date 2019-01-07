@@ -18,11 +18,8 @@ class KernelServiceProvider extends ServiceProvider {
 	    $this->app->instance('wprs_headers', []);
 	        
         add_filter( 'wp_headers', function($headers) {
-	        
 	        $this->app['wprs_headers'] = array_merge($this->app['wprs_headers'], $headers);
-	        
 	        return [];
-	        
         });
         
         $this->app->singleton('router', function ($container) {
@@ -30,9 +27,7 @@ class KernelServiceProvider extends ServiceProvider {
         });
 	    
 	    $this->app->singleton(Request::class, function() {
-		
 		    return $this->app->request;
-		    
 	    });
         
 	}

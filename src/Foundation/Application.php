@@ -70,9 +70,11 @@ class Application extends Container
         if (!$provider instanceof ServiceProvider) {
             $provider = new $provider($this);
         }
+
         if (array_key_exists($providerName = get_class($provider), $this->loadedProviders)) {
             return;
         }
+
         $this->loadedProviders[$providerName] = true;
         $provider->register();
 
