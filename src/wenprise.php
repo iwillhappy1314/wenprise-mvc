@@ -171,6 +171,8 @@ if ( ! class_exists( 'Wenprise' ) ) {
 
 			try {
 				$request  = $this->container[ 'request' ];
+
+				/* @var $response \Illuminate\Http\Response*/
 				$response = $this->container[ 'router' ]->dispatch( $request );
 
 				// 因为 WordPress 已经发送了headers，所以在这里，我们只发送内容
