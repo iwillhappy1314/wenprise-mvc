@@ -2,23 +2,6 @@
 
 use Wenprise\Foundation\Application;
 
-if (! function_exists('message')) {
-    /**
-     * 显示表单提示消息
-     *
-     * @param $message
-     *
-     * @deprecated
-     */
-
-    function message($message)
-    {
-        if ($message) {
-            echo '<div class="alert alert-'.$message['type'].'">'.$message['message'].'</div>';
-        }
-    }
-}
-
 /**
  * 生成通知消息
  *
@@ -57,8 +40,6 @@ if (! function_exists('admin_flash')) {
 
 /**
  * 显示通知消息
- *
- * @deprecated
  */
 if (! function_exists('messages')) {
     function messages()

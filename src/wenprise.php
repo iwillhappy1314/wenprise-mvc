@@ -138,7 +138,7 @@ if ( ! class_exists( 'Wenprise' ) ) {
 				'Asset'   => Wenprise\Facades\Asset::class,
 				'Ajax'    => Wenprise\Facades\Ajax::class,
 				'Blade'   => Wenprise\Facades\Blade::class,
-				'Config'   => Wenprise\Facades\Config::class,
+				'Config'  => Wenprise\Facades\Config::class,
 				'Flash'   => Wenprise\Facades\Flash::class,
 				'Filter'  => Wenprise\Facades\Filter::class,
 				'Html'    => Wenprise\Facades\Html::class,
