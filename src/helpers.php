@@ -286,7 +286,7 @@ if (!function_exists('wprs_is_app')) {
     {
         global $wp;
 
-        if (in_array('is_wenprise_route', $wp->query_vars) && $wp->query_vars['is_wenprise_route'] == 1) {
+        if (in_array('is_wenprise_route', array_keys($wp->query_vars)) && $wp->query_vars['is_wenprise_route'] == 1) {
             return true;
         }
 
