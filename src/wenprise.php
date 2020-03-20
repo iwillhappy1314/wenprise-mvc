@@ -198,8 +198,3 @@ if (!class_exists('Wenprise')) {
         }
     }
 }
-
-/*
- * 全局注册实例
- */
-$GLOBALS['wenprise'] = Wenprise::instance();
