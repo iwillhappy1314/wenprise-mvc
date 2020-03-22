@@ -45,7 +45,7 @@ abstract class DataContainer implements ArrayAccess
      */
     public function offsetSet($offset, $value)
     {
-        if (is_null($offset)) {
+        if ($offset === null) {
             $this->properties[] = $value;
         } else {
             $this->properties[$offset] = $value;

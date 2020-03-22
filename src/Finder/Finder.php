@@ -35,7 +35,7 @@ abstract class Finder implements IFinder {
 	 * @return $this
 	 */
 	protected function addPath( $key, $path ) {
-		if ( ! in_array( $path, $this->paths ) ) {
+		if ( !in_array($path, $this->paths, true)) {
 			if ( is_numeric( $key ) ) {
 				$this->paths[] = $path;
 			} else {

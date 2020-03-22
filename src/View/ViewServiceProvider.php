@@ -68,7 +68,6 @@ class ViewServiceProvider extends ServiceProvider {
 		} );
 	}
 
-
 	/**
 	 * Register the view factory. The factory is
 	 * available in all views.

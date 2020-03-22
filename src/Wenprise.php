@@ -47,7 +47,7 @@ if (!class_exists('Wenprise')) {
          */
         public static function instance()
         {
-            if (is_null(static::$instance)) {
+            if (static::$instance === null) {
                 static::$instance = new static();
             }
 
@@ -65,7 +65,6 @@ if (!class_exists('Wenprise')) {
              * 定义存储路径
              */
             defined('WENPRISE_STORAGE') ? WENPRISE_STORAGE : define('WENPRISE_STORAGE', WP_CONTENT_DIR.DS.'storage');
-
 
             /*
              * 定义框架路径，是路径而不是 URL
@@ -121,14 +120,10 @@ if (!class_exists('Wenprise')) {
         {
             $providers = apply_filters('wprs_service_providers', [
                 Wenprise\Ajax\AjaxServiceProvider::class,
-                Wenprise\Asset\AssetServiceProvider::class,
                 Wenprise\Config\ConfigServiceProvider::class,
                 Wenprise\Kernel\KernelServiceProvider::class,
                 Wenprise\Flash\FlashServiceProvider::class,
-                Wenprise\Hook\HookServiceProvider::class,
-                Wenprise\Html\HtmlServiceProvider::class,
                 Wenprise\Finder\FinderServiceProvider::class,
-                Wenprise\Page\PageServiceProvider::class,
                 Wenprise\Route\RouteServiceProvider::class,
                 Wenprise\View\ViewServiceProvider::class,
             ]);
@@ -145,16 +140,11 @@ if (!class_exists('Wenprise')) {
         protected function registerClassAlias()
         {
             $aliases = [
-                'Action'  => Wenprise\Facades\Action::class,
-                'Asset'   => Wenprise\Facades\Asset::class,
                 'Ajax'    => Wenprise\Facades\Ajax::class,
                 'Blade'   => Wenprise\Facades\Blade::class,
                 'Config'  => Wenprise\Facades\Config::class,
                 'Flash'   => Wenprise\Facades\Flash::class,
-                'Filter'  => Wenprise\Facades\Filter::class,
-                'Html'    => Wenprise\Facades\Html::class,
                 'Input'   => Wenprise\Facades\Input::class,
-                'Page'    => Wenprise\Facades\Page::class,
                 'Request' => Wenprise\Facades\Request::class,
                 'Route'   => Wenprise\Facades\Route::class,
                 'View'    => Wenprise\Facades\View::class,

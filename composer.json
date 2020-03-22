@@ -41,5 +41,9 @@
     "mockery/mockery": "^0.9.4"
   },
   "minimum-stability": "stable",
-  "preferred-install": "dist"
+  "config": {
+    "preferred-install": {
+      "*": "dist"
+    }
+  }
 }

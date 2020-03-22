@@ -134,7 +134,7 @@ if (!function_exists('str_contains')) {
     function str_contains($haystack, $needles)
     {
         foreach ((array) $needles as $needle) {
-            if ($needle != '' && strpos($haystack, $needle) !== false) {
+            if ($needle !== '' && strpos($haystack, $needle) !== false) {
                 return true;
             }
         }
@@ -156,7 +156,7 @@ if (!function_exists('app')) {
     {
         $application = isset($GLOBALS['wenprise']) ? $GLOBALS['wenprise']->container : Application::getInstance();
 
-        if (is_null($abstract)) {
+        if ($abstract === null) {
             return $application;
         }
 
@@ -202,6 +202,8 @@ if (!function_exists('view')) {
      * @param  string  $view  视图相对路径，名
      * @param  array  $data  传入的数据
      *
+     * @param  array  $mergeData
+     *
      * @return string
      */
     function view($view = null, array $data = [], array $mergeData = [])
@@ -229,7 +231,7 @@ if (!function_exists('meta')) {
      */
     function meta($key = '', $id = null, $context = 'post', $single = true)
     {
-        if (is_null($id)) {
+        if ($id === null) {
             $id = get_the_ID();
         }
 
@@ -252,13 +254,13 @@ if (!function_exists('meta')) {
 if (!function_exists('wprs_render_menu')) {
     function wprs_render_menu($menus)
     {
-        $current_link = (isset($_SERVER['HTTPS']) ? "https" : "http")."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $current_link = (isset($_SERVER['HTTPS']) ? 'https' : 'http')."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
         foreach ($menus as $m) {
 
             /** @var \Knp\Menu\MenuItem $m */
             $m->setLinkAttribute('class', 'c-menu__link');
-            if ($m->getUri() == $current_link) {
+            if ($m->getUri() === $current_link) {
                 $m->setCurrent(true);
                 $m->setLinkAttribute('class', 'c-menu__link is-active');
             }
@@ -270,9 +272,7 @@ if (!function_exists('wprs_render_menu')) {
             'ancestorClass' => 'c-menu__item',
         ]);
 
-        $menus = str_replace('&lt;', '<', $menus);
-        $menus = str_replace('&gt;', '>', $menus);
-        $menus = str_replace('&quot;', '"', $menus);
+        $menus = str_replace(['&lt;', '&gt;', '&quot;'], ['<', '>', '"'], $menus);
 
         return $menus;
     }
@@ -286,10 +286,6 @@ if (!function_exists('wprs_is_app')) {
     {
         global $wp;
 
-        if (in_array('is_wenprise_route', array_keys($wp->query_vars)) && $wp->query_vars['is_wenprise_route'] == 1) {
-            return true;
-        }
-
-        return false;
+        return array_key_exists('is_wenprise_route', $wp->query_vars) && $wp->query_vars['is_wenprise_route'] === 1;
     }
 }
