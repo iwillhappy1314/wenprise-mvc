@@ -32,7 +32,6 @@
     "illuminate/view": "~5.5.0",
     "illuminate/filesystem": "~5.5.0",
     "illuminate/database": "~5.5.0",
-    "filp/whoops": "^2.1",
     "knplabs/knp-menu": "^2.2",
     "plasticbrain/php-flash-messages": "^1.0"
   },
