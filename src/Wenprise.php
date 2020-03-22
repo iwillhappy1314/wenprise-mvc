@@ -119,7 +119,6 @@ if (!class_exists('Wenprise')) {
         protected function registerProviders()
         {
             $providers = apply_filters('wprs_service_providers', [
-                Wenprise\Ajax\AjaxServiceProvider::class,
                 Wenprise\Config\ConfigServiceProvider::class,
                 Wenprise\Kernel\KernelServiceProvider::class,
                 Wenprise\Flash\FlashServiceProvider::class,
@@ -140,7 +139,6 @@ if (!class_exists('Wenprise')) {
         protected function registerClassAlias()
         {
             $aliases = [
-                'Ajax'    => Wenprise\Facades\Ajax::class,
                 'Blade'   => Wenprise\Facades\Blade::class,
                 'Config'  => Wenprise\Facades\Config::class,
                 'Flash'   => Wenprise\Facades\Flash::class,
