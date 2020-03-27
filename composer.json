@@ -19,7 +19,7 @@
     },
     "files": [
       "src/helpers.php",
-      "src/wenprise.php"
+      "src/Wenprise.php"
     ]
   },
   "require": {
