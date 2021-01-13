@@ -11,8 +11,6 @@ defined('DS') ? DS : define('DS', DIRECTORY_SEPARATOR);
 /*
  * 启动框架的主 Class
  */
-
-
 class App
 {
     /**
@@ -75,6 +73,7 @@ class App
         $paths['core']    = __DIR__.DS;
         $paths['sys']     = __DIR__.DS.'src'.DS.'Wenprise'.DS;
         $paths['storage'] = WENPRISE_STORAGE;
+
         Helpers::set_paths($paths);
 
         /*

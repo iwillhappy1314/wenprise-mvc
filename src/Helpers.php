@@ -1,4 +1,5 @@
 <?php
+
 namespace Wenprise;
 
 use Plasticbrain\FlashMessages\FlashMessages;
@@ -16,7 +17,6 @@ class Helpers
      *
      * @return \Plasticbrain\FlashMessages\FlashMessages
      */
-
     public static function flash($type, $message, $url = null, $sticky = false)
     {
         $msg = new FlashMessages();
@@ -32,7 +32,6 @@ class Helpers
      * @param  string  $type
      * @param  string  $message
      */
-
     public static function admin_flash($type, $message)
     {
         \add_action('admin_notices', function () use ($type, $message)
@@ -46,8 +45,7 @@ class Helpers
     /**
      * 显示通知消息
      */
-
-    public static function messages()
+    public static function show_messages()
     {
         $msg = new FlashMessages();
         $msg->display();
@@ -90,32 +88,13 @@ class Helpers
 
 
     /**
-     * 转换 '.' 到 '/' 路径分隔符
-     *
-     * @param  string  $path  使用 '.' 分隔的原始字符串
-     *
-     * @return string 转换后的使用 '/' 分隔的字符串
-     */
-    public static function convert_path($path)
-    {
-        if (strpos($path, '.') !== false) {
-            $path = \str_replace('.', DS, $path);
-        } else {
-            $path = \trim($path);
-        }
-
-        return (string) $path;
-    }
-
-
-    /**
      * 获取设置值
      *
      * @param $key
      *
      * @return mixed
      */
-    public static function config($key)
+    public static function get_config($key)
     {
         return \Wenprise\Facades\Config::get($key);
     }
@@ -129,7 +108,7 @@ class Helpers
      *
      * @return mixed
      */
-    public static function app($abstract = null, array $parameters = [])
+    public static function init_app($abstract = null, array $parameters = [])
     {
         $application = isset($GLOBALS['wenprise']) ? $GLOBALS['wenprise']->container : Application::getInstance();
 
@@ -149,9 +128,9 @@ class Helpers
      *
      * @return mixed
      */
-    public static function container($abstract = null, array $parameters = [])
+    public static function get_container($abstract = null, array $parameters = [])
     {
-        return static::app($abstract, $parameters);
+        return static::init_app($abstract, $parameters);
     }
 
 
@@ -160,9 +139,9 @@ class Helpers
      *
      * @return \Wenprise\App
      */
-    public static function wenprise()
+    public static function get_app_instance()
     {
-        if (!class_exists('Wenprise')) {
+        if (!class_exists('Wenprise\\App')) {
             \wp_die('Wenprise has not yet been initialized. Please make sure the Wenprise framework is installed.');
         }
 
@@ -180,9 +159,9 @@ class Helpers
      *
      * @return string
      */
-    public static function view($view = null, array $data = [], array $mergeData = [])
+    public static function render_view($view = null, array $data = [], array $mergeData = [])
     {
-        $factory = Helpers::container('view');
+        $factory = Helpers::get_container('view');
 
         if (func_num_args() === 0) {
             return $factory;
@@ -193,34 +172,9 @@ class Helpers
 
 
     /**
-     * 从对象中获取元数据
-     *
-     * @param  string  $key
-     * @param  int  $id
-     * @param  string  $context
-     * @param  bool  $single
-     *
-     * @return mixed|string
-     */
-    public static function meta($key = '', $id = null, $context = 'post', $single = true)
-    {
-        if ($id === null) {
-            $id = \get_the_ID();
-        }
-
-        // If no ID found, return empty string.
-        if (!$id) {
-            return '';
-        }
-
-        return \get_metadata($context, $id, $key, $single);
-    }
-
-
-    /**
      * 渲染 Knp Menu 生成的菜单
      *
-     * @param $menu
+     * @param $menus
      *
      * @return mixed|string
      */
