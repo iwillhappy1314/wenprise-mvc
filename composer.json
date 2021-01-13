@@ -16,11 +16,7 @@
   "autoload": {
     "psr-4": {
       "Wenprise\\": "src/"
-    },
-    "files": [
-      "src/helpers.php",
-      "src/Wenprise.php"
-    ]
+    }
   },
   "require": {
     "php": ">=5.6.4",

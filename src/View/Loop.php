@@ -9,7 +9,7 @@ class Loop {
 	 * @return int The ID of the current post.
 	 */
 	public function id() {
-		return get_the_ID();
+		return \get_the_ID();
 	}
 
 	/**
@@ -20,7 +20,7 @@ class Loop {
 	 * @return string The title of the current post.
 	 */
 	public function title( $post = 0 ) {
-		return get_the_title( $post );
+		return \get_the_title( $post );
 	}
 
 	/**
@@ -29,7 +29,7 @@ class Loop {
 	 * @return string The author of the current post.
 	 */
 	public function author() {
-		return get_the_author();
+		return \get_the_author();
 	}
 
 	/**
@@ -41,7 +41,7 @@ class Loop {
 	 * @return string
 	 */
 	public function authorMeta( $field = '', $user_id = 0 ) {
-		return get_the_author_meta( $field, $user_id );
+		return \get_the_author_meta( $field, $user_id );
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Loop {
 	 * @return string The content of the current post.
 	 */
 	public function content( $more_text = null, $strip_teaser = false ) {
-		$content = apply_filters( 'the_content', get_the_content( $more_text, $strip_teaser ) );
+		$content = \apply_filters( 'the_content', \get_the_content( $more_text, $strip_teaser ) );
 		$content = str_replace( ']]>', ']]&gt;', $content );
 
 		return $content;
@@ -67,7 +67,7 @@ class Loop {
 	 * @return string The excerpt of the current post.
 	 */
 	public function excerpt( $post = null ) {
-		return get_the_excerpt( $post );
+		return \get_the_excerpt( $post );
 	}
 
 	/**
@@ -84,7 +84,7 @@ class Loop {
 			$post = $this->id();
 		}
 
-		return get_the_post_thumbnail( $post, $size, $attr );
+		return \get_the_post_thumbnail( $post, $size, $attr );
 	}
 
 	/**
@@ -96,7 +96,7 @@ class Loop {
 	 * @return null|string
 	 */
 	public function thumbnailUrl( $size = null, $icon = false ) {
-		$data = wp_get_attachment_image_src( get_post_thumbnail_id( $this->id() ), $size, $icon );
+		$data = \wp_get_attachment_image_src( \get_post_thumbnail_id( $this->id() ), $size, $icon );
 
 		return ( empty( $data ) ) ? null : $data[ 0 ];
 	}
@@ -110,7 +110,7 @@ class Loop {
 	 * @return string The permalink of the current post.
 	 */
 	public function link( $post = 0, $leavename = false ) {
-		return get_permalink( $post, $leavename );
+		return \get_permalink( $post, $leavename );
 	}
 
 	/**
@@ -121,7 +121,7 @@ class Loop {
 	 * @return array The categories of the current post.
 	 */
 	public function category( $id = 0 ) {
-		return get_the_category( $id );
+		return \get_the_category( $id );
 	}
 
 	/**
@@ -132,7 +132,7 @@ class Loop {
 	 * @return array The tags of the current post.
 	 */
 	public function tags( $id = 0 ) {
-		$tags = get_the_tags( $id );
+		$tags = \get_the_tags( $id );
 
 		return $tags ? $tags : [];
 	}
@@ -152,7 +152,7 @@ class Loop {
 			$post = $this->id();
 		}
 
-		$terms = get_the_terms( $post, $taxonomy );
+		$terms = \get_the_terms( $post, $taxonomy );
 
 		return $terms ? $terms : [];
 	}
@@ -166,7 +166,7 @@ class Loop {
 	 * @return string The date of the current post.
 	 */
 	public function date( $d = '', $post = null ) {
-		return get_the_date( $d, $post );
+		return \get_the_date( $d, $post );
 	}
 
 	/**
@@ -180,7 +180,7 @@ class Loop {
 	 * @return string
 	 */
 	public function postClass( $class = '', $post_id = null ) {
-		return 'class="' . implode( ' ', get_post_class( $class, $post_id ) ) . '"';
+		return 'class="' . implode( ' ', \get_post_class( $class, $post_id ) ) . '"';
 	}
 
 	/**
@@ -192,7 +192,7 @@ class Loop {
 	 * @return string
 	 */
 	public function nextPage( $label = null, $max_page = 0 ) {
-		return get_next_posts_link( $label, $max_page );
+		return \get_next_posts_link( $label, $max_page );
 	}
 
 	/**
@@ -203,7 +203,7 @@ class Loop {
 	 * @return string|void
 	 */
 	public function previousPage( $label = null ) {
-		return get_previous_posts_link( $label );
+		return \get_previous_posts_link( $label );
 	}
 
 	/**
@@ -216,6 +216,6 @@ class Loop {
 	 * @return string|array
 	 */
 	public function paginate( $args = [] ) {
-		return paginate_links( $args );
+		return \paginate_links( $args );
 	}
 }

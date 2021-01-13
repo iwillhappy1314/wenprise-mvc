@@ -57,7 +57,7 @@ class ViewServiceProvider extends ServiceProvider {
 		$storage   = $container[ 'path.storage' ] . 'views';
 
 		if ( ! realpath( $storage ) ) {
-			wp_mkdir_p( $storage );
+			\wp_mkdir_p( $storage );
 		}
 
 		$filesystem    = $container[ 'filesystem' ];
