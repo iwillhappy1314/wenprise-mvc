@@ -13,7 +13,6 @@ class ViewServiceProvider extends ServiceProvider {
 	public function register() {
 		$this->registerEngineResolver();
 		$this->registerViewFactory();
-		$this->registerLoop();
 	}
 
 	/**
@@ -96,12 +95,6 @@ class ViewServiceProvider extends ServiceProvider {
 		} );
 	}
 
-	/**
-	 * Register the loop helper class.
-	 */
-	protected function registerLoop() {
-		$this->app->instance( 'loop', new Loop() );
-	}
 
 	/**
 	 * Register custom Blade directives for use into views.
