@@ -48,7 +48,11 @@ class Helpers
     public static function show_messages()
     {
         $msg = new FlashMessages();
+
+        ob_start();
         $msg->display();
+
+        return ob_get_clean();
     }
 
 
@@ -141,7 +145,7 @@ class Helpers
      */
     public static function get_app_instance()
     {
-        if (!class_exists('Wenprise\\App')) {
+        if (!class_exists('Wenprise\\Mvc\\App')) {
             \wp_die('Wenprise has not yet been initialized. Please make sure the Wenprise framework is installed.');
         }
 
@@ -178,7 +182,6 @@ class Helpers
      *
      * @return mixed|string
      */
-
     public static function render_menu($menus)
     {
         $current_link = (isset($_SERVER['HTTPS']) ? 'https' : 'http')."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -208,7 +211,6 @@ class Helpers
     /**
      * 使用排除法判断是否为 APP 页面
      */
-
     public static function is_app()
     {
         global $wp;
