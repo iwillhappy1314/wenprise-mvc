@@ -1,9 +1,9 @@
 <?php
 
-namespace Wenprise\Finder;
+namespace Wenprise\Mvc\Finder;
 
 use Illuminate\Filesystem\Filesystem;
-use Wenprise\Foundation\ServiceProvider;
+use Wenprise\Mvc\Foundation\ServiceProvider;
 
 class FinderServiceProvider extends ServiceProvider
 {

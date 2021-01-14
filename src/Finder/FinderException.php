@@ -1,6 +1,6 @@
 <?php
 
-namespace Wenprise\Finder;
+namespace Wenprise\Mvc\Finder;
 
 use Exception;
 

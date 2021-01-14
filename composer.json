@@ -15,7 +15,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Wenprise\\": "src/"
+      "Wenprise\\Mvc\\": "src/"
     }
   },
   "require": {

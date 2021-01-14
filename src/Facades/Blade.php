@@ -1,6 +1,6 @@
 <?php
 
-namespace Wenprise\Facades;
+namespace Wenprise\Mvc\Facades;
 
 class Blade extends Facade
 {

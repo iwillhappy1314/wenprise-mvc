@@ -1,6 +1,6 @@
 <?php
 
-namespace Wenprise\Config;
+namespace Wenprise\Mvc\Config;
 
 class ConfigFactory implements IConfig
 {

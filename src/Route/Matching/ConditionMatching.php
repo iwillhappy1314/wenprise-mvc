@@ -1,9 +1,9 @@
 <?php
 
-namespace Wenprise\Route\Matching;
+namespace Wenprise\Mvc\Route\Matching;
 
-use Wenprise\Foundation\Request;
-use Wenprise\Route\Route;
+use Wenprise\Mvc\Foundation\Request;
+use Wenprise\Mvc\Route\Route;
 
 class ConditionMatching implements IMatching
 {

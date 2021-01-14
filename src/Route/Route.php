@@ -1,11 +1,11 @@
 <?php
 
-namespace Wenprise\Route;
+namespace Wenprise\Mvc\Route;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route as IlluminateRoute;
 use Illuminate\Support\Arr;
-use Wenprise\Route\Matching\ConditionMatching;
+use Wenprise\Mvc\Route\Matching\ConditionMatching;
 
 class Route extends IlluminateRoute {
 	/**

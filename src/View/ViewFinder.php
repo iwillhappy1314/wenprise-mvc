@@ -1,6 +1,6 @@
 <?php
 
-namespace Wenprise\View;
+namespace Wenprise\Mvc\View;
 
 use Illuminate\View\FileViewFinder;
 

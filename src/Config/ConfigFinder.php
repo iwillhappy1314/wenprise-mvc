@@ -1,8 +1,8 @@
 <?php
 
-namespace Wenprise\Config;
+namespace Wenprise\Mvc\Config;
 
-use Wenprise\Finder\Finder;
+use Wenprise\Mvc\Finder\Finder;
 
 class ConfigFinder extends Finder
 {

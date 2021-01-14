@@ -1,6 +1,6 @@
 <?php
 
-namespace Wenprise\Finder;
+namespace Wenprise\Mvc\Finder;
 
 abstract class Finder implements IFinder {
 	/**
@@ -86,7 +86,7 @@ abstract class Finder implements IFinder {
 	 * @param string $name The file name or relative path.
 	 *
 	 * @return array|mixed|string
-	 * @throws \Wenprise\Finder\FinderException
+	 * @throws \Wenprise\Mvc\Finder\FinderException
 	 */
 	public function find( $name ) {
 		if ( isset( $this->files[ $name ] ) ) {
@@ -104,7 +104,7 @@ abstract class Finder implements IFinder {
 	 * @param array  $paths Registered paths.
 	 *
 	 * @return string
-	 * @throws \Wenprise\Finder\FinderException
+	 * @throws \Wenprise\Mvc\Finder\FinderException
 	 */
 	protected function findInPaths( $name, array $paths ) {
 		foreach ( $paths as $path ) {

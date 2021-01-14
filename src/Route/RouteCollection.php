@@ -1,6 +1,6 @@
 <?php
 
-namespace Wenprise\Route;
+namespace Wenprise\Mvc\Route;
 
 use Illuminate\Routing\RouteCollection as IlluminateRouteCollection;
 
@@ -9,7 +9,7 @@ class RouteCollection extends IlluminateRouteCollection
     /**
      * Add the given route to the arrays of routes.
      *
-     * @param \Wenprise\Route\Route $route
+     * @param \Wenprise\Mvc\Route\Route $route
      */
     protected function addToCollections($route)
     {

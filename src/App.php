@@ -1,6 +1,6 @@
 <?php
 
-namespace Wenprise;
+namespace Wenprise\Mvc;
 
 /*----------------------------------------------------*/
 // 目录分隔符
@@ -16,7 +16,7 @@ class App
     /**
      * Wenprise 实例.
      *
-     * @var \Wenprise\App
+     * @var \Wenprise\Mvc\App
      */
     protected static $instance = null;
 
@@ -30,7 +30,7 @@ class App
     /**
      * 服务容器
      *
-     * @var \Wenprise\Foundation\Application
+     * @var \Wenprise\Mvc\Foundation\Application
      */
     public $container;
 
@@ -44,7 +44,7 @@ class App
     /**
      * 获取 Wenprise 类实例
      *
-     * @return \Wenprise\App
+     * @return \Wenprise\Mvc\App
      */
     public static function instance()
     {
@@ -79,18 +79,18 @@ class App
         /*
          * 为项目初始化服务容器
          */
-        $this->container = new \Wenprise\Foundation\Application();
+        $this->container = new \Wenprise\Mvc\Foundation\Application();
 
         /*
          * 创建一个新的请求实例，并注册，通过提供一个实例，该实例可共享
          */
-        $request = \Wenprise\Foundation\Request::capture();
+        $request = \Wenprise\Mvc\Foundation\Request::capture();
         $this->container->instance('request', $request);
 
         /*
          * 设置 Facade 应用.
          */
-        \Wenprise\Facades\Facade::setFacadeApplication($this->container);
+        \Wenprise\Mvc\Facades\Facade::setFacadeApplication($this->container);
 
         /*
          * 注册路径到到容器，一般在这个阶段、插件应该注册他们的路径到 $GLOBALS 数组中
@@ -121,12 +121,12 @@ class App
     protected function registerProviders()
     {
         $providers = \apply_filters('wprs_service_providers', [
-            \Wenprise\Config\ConfigServiceProvider::class,
-            \Wenprise\Kernel\KernelServiceProvider::class,
-            \Wenprise\Flash\FlashServiceProvider::class,
-            \Wenprise\Finder\FinderServiceProvider::class,
-            \Wenprise\Route\RouteServiceProvider::class,
-            \Wenprise\View\ViewServiceProvider::class,
+            \Wenprise\Mvc\Config\ConfigServiceProvider::class,
+            \Wenprise\Mvc\Kernel\KernelServiceProvider::class,
+            \Wenprise\Mvc\Flash\FlashServiceProvider::class,
+            \Wenprise\Mvc\Finder\FinderServiceProvider::class,
+            \Wenprise\Mvc\Route\RouteServiceProvider::class,
+            \Wenprise\Mvc\View\ViewServiceProvider::class,
         ]);
 
         foreach ($providers as $provider) {
@@ -141,13 +141,13 @@ class App
     protected function registerClassAlias()
     {
         $aliases = [
-            'Blade'   => \Wenprise\Facades\Blade::class,
-            'Config'  => \Wenprise\Facades\Config::class,
-            'Flash'   => \Wenprise\Facades\Flash::class,
-            'Input'   => \Wenprise\Facades\Input::class,
-            'Request' => \Wenprise\Facades\Request::class,
-            'Route'   => \Wenprise\Facades\Route::class,
-            'View'    => \Wenprise\Facades\View::class,
+            'Blade'   => \Wenprise\Mvc\Facades\Blade::class,
+            'Config'  => \Wenprise\Mvc\Facades\Config::class,
+            'Flash'   => \Wenprise\Mvc\Facades\Flash::class,
+            'Input'   => \Wenprise\Mvc\Facades\Input::class,
+            'Request' => \Wenprise\Mvc\Facades\Request::class,
+            'Route'   => \Wenprise\Mvc\Facades\Route::class,
+            'View'    => \Wenprise\Mvc\Facades\View::class,
         ];
 
         /*

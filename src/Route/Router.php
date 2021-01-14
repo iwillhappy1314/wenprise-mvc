@@ -1,10 +1,10 @@
 <?php
 
-namespace Wenprise\Route;
+namespace Wenprise\Mvc\Route;
 
 use Illuminate\Events\Dispatcher;
 use Illuminate\Routing\Router as IlluminateRouter;
-use Wenprise\Foundation\Application;
+use Wenprise\Mvc\Foundation\Application;
 
 class Router extends IlluminateRouter
 {
@@ -12,7 +12,7 @@ class Router extends IlluminateRouter
      * Build a Router instance.
      *
      * @param \Illuminate\Events\Dispatcher    $events
-     * @param \Wenprise\Foundation\Application $container
+     * @param \Wenprise\Mvc\Foundation\Application $container
      */
     public function __construct(Dispatcher $events, Application $container)
     {
@@ -39,7 +39,7 @@ class Router extends IlluminateRouter
      * Find the route matching a given request.
      *
      * @param  \Illuminate\Http\Request $request
-     * @return \Wenprise\Route\Route
+     * @return \Wenprise\Mvc\Route\Route
      */
     protected function findRoute($request)
     {

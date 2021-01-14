@@ -1,6 +1,6 @@
 <?php
 
-namespace Wenprise\Foundation;
+namespace Wenprise\Mvc\Foundation;
 
 use Illuminate\Container\Container;
 
@@ -44,7 +44,7 @@ class Application extends Container
      *
      * @param array $paths The registered paths.
      *
-     * @return \Wenprise\Foundation\Application
+     * @return \Wenprise\Mvc\Foundation\Application
      */
     public function registerAllPaths(array $paths)
     {
@@ -60,7 +60,7 @@ class Application extends Container
     /**
      * Register a service provider with the application.
      *
-     * @param \Wenprise\Foundation\ServiceProvider|string $provider
+     * @param \Wenprise\Mvc\Foundation\ServiceProvider|string $provider
      * @param array                                       $options
      * @param bool                                        $force
      *

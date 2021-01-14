@@ -1,6 +1,6 @@
 <?php
 
-namespace Wenprise\Config;
+namespace Wenprise\Mvc\Config;
 
 class Constant
 {
@@ -19,7 +19,7 @@ class Constant
     /**
      * Load a list of constant variables.
      *
-     * @return \Wenprise\Config\Constant
+     * @return \Wenprise\Mvc\Config\Constant
      */
     public function make()
     {

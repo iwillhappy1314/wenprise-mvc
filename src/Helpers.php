@@ -1,9 +1,9 @@
 <?php
 
-namespace Wenprise;
+namespace Wenprise\Mvc;
 
 use Plasticbrain\FlashMessages\FlashMessages;
-use Wenprise\Foundation\Application;
+use Wenprise\Mvc\Foundation\Application;
 
 class Helpers
 {
@@ -96,7 +96,7 @@ class Helpers
      */
     public static function get_config($key)
     {
-        return \Wenprise\Facades\Config::get($key);
+        return \Wenprise\Mvc\Facades\Config::get($key);
     }
 
 
@@ -137,7 +137,7 @@ class Helpers
     /**
      * 获取 Wenprise 类实例
      *
-     * @return \Wenprise\App
+     * @return \Wenprise\Mvc\App
      */
     public static function get_app_instance()
     {
@@ -145,7 +145,7 @@ class Helpers
             \wp_die('Wenprise has not yet been initialized. Please make sure the Wenprise framework is installed.');
         }
 
-        return \Wenprise\App::instance();
+        return \Wenprise\Mvc\App::instance();
     }
 
 

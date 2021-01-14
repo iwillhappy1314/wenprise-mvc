@@ -1,9 +1,9 @@
 <?php
 
-namespace Wenprise\Flash;
+namespace Wenprise\Mvc\Flash;
 
 use Plasticbrain\FlashMessages\FlashMessages;
-use Wenprise\Foundation\ServiceProvider;
+use Wenprise\Mvc\Foundation\ServiceProvider;
 
 class FlashServiceProvider extends ServiceProvider {
 	public function register() {

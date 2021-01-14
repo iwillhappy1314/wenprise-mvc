@@ -1,20 +1,20 @@
 <?php
 
-namespace Wenprise\Facades;
+namespace Wenprise\Mvc\Facades;
 
 abstract class Facade
 {
     /**
      * The Application instance.
      *
-     * @var \Wenprise\Foundation\Application
+     * @var \Wenprise\Mvc\Foundation\Application
      */
     protected static $app;
 
     /**
      * Set the service container for the facades.
      *
-     * @param \Wenprise\Foundation\Application $app
+     * @param \Wenprise\Mvc\Foundation\Application $app
      */
     public static function setFacadeApplication($app)
     {

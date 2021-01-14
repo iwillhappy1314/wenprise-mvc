@@ -1,9 +1,9 @@
 <?php
 
-namespace Wenprise\Route;
+namespace Wenprise\Mvc\Route;
 
 use Illuminate\Events\Dispatcher;
-use Wenprise\Foundation\ServiceProvider;
+use Wenprise\Mvc\Foundation\ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Wenprise\Kernel;
+namespace Wenprise\Mvc\Kernel;
 
-use Wenprise\Route\Router as BaseRouter;
+use Wenprise\Mvc\Route\Router as BaseRouter;
 use Illuminate\Http\Request;
 
 class Router extends BaseRouter

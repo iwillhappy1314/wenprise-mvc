@@ -1,6 +1,6 @@
 <?php
 
-namespace Wenprise\Route;
+namespace Wenprise\Mvc\Route;
 
 use Illuminate\Routing\Controller;
 

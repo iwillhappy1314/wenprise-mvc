@@ -1,6 +1,6 @@
 <?php
 
-namespace Wenprise\Foundation;
+namespace Wenprise\Mvc\Foundation;
 
 use Illuminate\Http\Request as IlluminateRequest;
 

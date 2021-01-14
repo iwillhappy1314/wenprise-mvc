@@ -1,13 +1,13 @@
 <?php
 
-namespace Wenprise\View;
+namespace Wenprise\Mvc\View;
 
 use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\View\Engines\CompilerEngine;
 use Illuminate\View\Engines\EngineResolver;
 use Illuminate\View\Engines\PhpEngine;
 use Illuminate\View\Factory;
-use Wenprise\Foundation\ServiceProvider;
+use Wenprise\Mvc\Foundation\ServiceProvider;
 
 class ViewServiceProvider extends ServiceProvider {
 	public function register() {

@@ -1,8 +1,8 @@
 <?php
 	
-namespace Wenprise\Kernel;
+namespace Wenprise\Mvc\Kernel;
 
-use Wenprise\Foundation\ServiceProvider;
+use Wenprise\Mvc\Foundation\ServiceProvider;
 use Illuminate\Http\Request;
 
 class KernelServiceProvider extends ServiceProvider {

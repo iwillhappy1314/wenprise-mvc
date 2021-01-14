@@ -1,8 +1,8 @@
 <?php
 
-namespace Wenprise\Config;
+namespace Wenprise\Mvc\Config;
 
-use Wenprise\Foundation\ServiceProvider;
+use Wenprise\Mvc\Foundation\ServiceProvider;
 use Illuminate\Contracts\Config\Repository;
 
 class ConfigServiceProvider extends ServiceProvider

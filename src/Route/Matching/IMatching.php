@@ -1,17 +1,17 @@
 <?php
 
-namespace Wenprise\Route\Matching;
+namespace Wenprise\Mvc\Route\Matching;
 
-use Wenprise\Foundation\Request;
-use Wenprise\Route\Route;
+use Wenprise\Mvc\Foundation\Request;
+use Wenprise\Mvc\Route\Route;
 
 interface IMatching
 {
     /**
      * Validate a given rule against a route and request.
      *
-     * @param \Wenprise\Route\Route        $route
-     * @param \Wenprise\Foundation\Request $request
+     * @param \Wenprise\Mvc\Route\Route        $route
+     * @param \Wenprise\Mvc\Foundation\Request $request
      *
      * @return bool
      */
