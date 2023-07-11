@@ -55,43 +55,56 @@ The structure of theme/app directory.
 the code in `init.php`
 
 ```php
-defined( 'DS' ) ? DS : define( 'DS', DIRECTORY_SEPARATOR );
+namespace Theme;
+
+use Theme\Providers\RoutingService;
+use Wenprise\Mvc\App;
+
+class Init
+{
+
+    public function __construct()
+    {
+        $GLOBALS[ 'wenprise' ] = App::instance();
+
+        /*
+         * 获取服务容器
+         */
+        $container = $GLOBALS[ 'wenprise' ]->container;
+
+        /*
+         * 注册主题视图路径
+         */
+        $container[ 'view.finder' ]->addLocation(get_theme_file_path('templates'));
 
 
-if ( function_exists( 'container' ) ) {
+        /*
+         * 加载配置文件
+         */
+        $container[ 'config.finder' ]->addPaths([
+            get_theme_file_path('app/Config/'),
+        ]);
 
-	/*
-	 * get the container
-	 */
-	$theme = container();
+        /**
+         * 主题服务提供者
+         */
+        $providers = [
+            RoutingService::class,
+        ];
 
-	/*
-	 * register theme view path
-	 * where the blade template files placed
-	 */
-	$theme[ 'view.finder' ]->addLocation( get_theme_file_path( 'views' ) );
+        foreach ($providers as $provider) {
+            $container->register($provider);
+        }
 
-	$aliases = [];
-
-	/*
-	 * theme class alias
-	 */
-	if ( ! empty( $aliases ) && is_array( $aliases ) ) {
-		foreach ( $aliases as $alias => $fullname ) {
-			class_alias( $fullname, $alias );
-		}
-	}
-
-	/**
-	 * resiter theme service providers
-	 */
-	$providers = [
-		Theme\Providers\RoutingService::class,
-	];
-
-	foreach ( $providers as $provider ) {
-		$theme->register( $provider );
-	}
+        /*
+         * 主题别名
+         */
+        if ( ! empty($aliases) && is_array($aliases)) {
+            foreach ($aliases as $alias => $full_name) {
+                class_alias($full_name, $alias);
+            }
+        }
+    }
 
 }
 ```
