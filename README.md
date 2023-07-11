@@ -95,15 +95,6 @@ class Init
         foreach ($providers as $provider) {
             $container->register($provider);
         }
-
-        /*
-         * 主题别名
-         */
-        if ( ! empty($aliases) && is_array($aliases)) {
-            foreach ($aliases as $alias => $full_name) {
-                class_alias($full_name, $alias);
-            }
-        }
     }
 
 }
