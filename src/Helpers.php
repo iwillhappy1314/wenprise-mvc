@@ -19,6 +19,10 @@ class Helpers
      */
     public static function flash($type, $message, $url = null, $sticky = false)
     {
+        if (!class_exists('\Plasticbrain\FlashMessages\FlashMessages')) {
+            wp_die('Please install plasticbrain/php-flash-messages library');
+        }
+        
         $msg = new FlashMessages();
         $msg->$type($message, $url, $sticky);
 
@@ -184,6 +188,10 @@ class Helpers
      */
     public static function render_menu($menus)
     {
+        if (!class_exists('\Knp\Menu\Renderer\ListRenderer')) {
+            wp_die('Please install knplabs/knp-menu library');
+        }
+        
         $current_link = (isset($_SERVER['HTTPS']) ? 'https' : 'http')."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
         foreach ($menus as $m) {
