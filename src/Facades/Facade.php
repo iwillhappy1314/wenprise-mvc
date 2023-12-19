@@ -35,7 +35,7 @@ abstract class Facade
     }
 
     /**
-     * Each facade must define their igniter service
+     * Each facade must define their ignite service
      * class key name.
      *
      * @throws \RuntimeException

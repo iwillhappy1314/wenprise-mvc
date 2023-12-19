@@ -163,7 +163,7 @@ class Route extends IlluminateRoute {
 
 			// When no posts, $post is null.
 			// When is null, set the parameter value of $post to false.
-			// This avoid missing arguments in methods for routes or controllers.
+			// This avoids missing arguments in methods for routes or controllers.
 			if ( is_null( $parameters[ 'post' ] ) ) {
 				$parameters[ 'post' ] = false;
 			}
@@ -214,13 +214,13 @@ class Route extends IlluminateRoute {
 	public function getWpValidators() {
 		// To match the route, we will use a chain of responsibility pattern with the
 		// validator implementations. We will spin through each one making sure it
-		// passes and then we will know if the route as a whole matches request.
+		// passes, and then we will know if the route as a whole matches request.
 		return [ new ConditionMatching() ];
 	}
 
 	/**
 	 * Create a WordPress rewrite rule for the route if the route is not using a WordPress conditional tag.
-	 * By registering a rewrite rule using the route's regex we force WordPress not to change the url to one Wordpress knows.
+	 * By registering a rewrite rule using the route's regex we force WordPress not to change the url to one WordPress knows.
 	 *
 	 */
 	public function createRewriteRule() {

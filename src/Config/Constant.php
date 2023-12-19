@@ -5,7 +5,7 @@ namespace Wenprise\Mvc\Config;
 class Constant
 {
     /**
-     * Save the retrieved datas.
+     * Save the retrieved dataset.
      *
      * @var array
      */

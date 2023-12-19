@@ -54,7 +54,7 @@ class Router extends IlluminateRouter
                 /*
                  * We cannot rely on the flush_rewrite_rules() function as it's a heavy process
                  * especially on a per-request manner.
-                 * We modify the headers status and set to 200 so it is properly handled.
+                 * We modify the headers status and set to 200, so it is properly handled.
                  * We need to use WordPress headers functions as we only return the response
                  * content on each request.
                  */

@@ -49,7 +49,7 @@ class Input extends Facade
     }
 
     /**
-     * Get all of the input and files for the request.
+     * Get all the input and files for the request.
      *
      * @return array
      */

@@ -82,7 +82,7 @@ class App
         $this->container = new \Wenprise\Mvc\Foundation\Application();
 
         /*
-         * 创建一个新的请求实例，并注册，通过提供一个实例，该实例可共享
+         * 创建一个新请求实例，并注册，通过提供一个实例，该实例可共享
          */
         $request = \Wenprise\Mvc\Foundation\Request::capture();
         $this->container->instance('request', $request);
