@@ -108,6 +108,9 @@ class App
         /*
          * 项目 hooks.
          * 按他们的调用顺序添加
+         * 
+         * @todo: redirect_canonical 会导致某些页面意外被跳转到首页，具体原因有待调查
+         * 下面一行改为 remove_action('template_redirect', 'redirect_canonical'); 可以暂时解决，但会影响标准化URL的功能
          */
         \add_action('template_redirect', 'redirect_canonical');
         \add_action('template_redirect', 'wp_redirect_admin_locations');
