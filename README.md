@@ -4,6 +4,11 @@ Add a MVC framework to wordpress, based on [Themosis Framework](https://framewor
 
 ## Usage
 
+### Prerequisites
+
+1. Set permalink structure as `/%postname%/` in Permalink Settings
+2. Set *Your homepage displays* as `Your latest posts` in Reading Settings
+
 ### User composer to install
 
 In your theme directory
