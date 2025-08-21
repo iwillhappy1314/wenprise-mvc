@@ -108,13 +108,22 @@ class App
         /*
          * 项目 hooks.
          * 按他们的调用顺序添加
-         * 
+         *
          * @todo: redirect_canonical 会导致某些页面意外被跳转到首页，具体原因有待调查
          * 下面一行改为 remove_action('template_redirect', 'redirect_canonical'); 可以暂时解决，但会影响标准化URL的功能
          */
+        \add_action('template_redirect', [$this, 'setRouter'], 5);
         \add_action('template_redirect', 'redirect_canonical');
         \add_action('template_redirect', 'wp_redirect_admin_locations');
-        \add_action('template_redirect', [$this, 'setRouter'], 20);
+
+        add_filter('redirect_canonical', function($redirect_url, $requested_url) {
+            global $wp;
+            // 如果是wenprise路由，不进行canonical重定向
+            if (isset($wp->query_vars['is_wenprise_route']) && $wp->query_vars['is_wenprise_route'] == 1) {
+                return false;
+            }
+            return $redirect_url;
+        }, 10, 2);
     }
 
 
@@ -190,4 +199,3 @@ class App
         }
     }
 }
-
