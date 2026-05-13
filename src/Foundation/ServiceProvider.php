@@ -16,10 +16,10 @@ abstract class ServiceProvider extends IlluminateServiceProvider
      *
      * @throws \Exception
      */
-    public function __call($method, $parameters)
+    public function __call(string $method, array $parameters): mixed
     {
         if ($method === 'boot') {
-            return;
+            return null;
         }
 
         throw new \RuntimeException("Call to undefined method [{$method}]");

@@ -47,7 +47,7 @@ class Application extends Container
      *
      * @return \Wenprise\Mvc\Foundation\Application
      */
-    public function registerAllPaths(array $paths)
+    public function registerAllPaths(array $paths): self
     {
         $this->paths = $paths;
 
@@ -86,7 +86,7 @@ class Application extends Container
      *
      * @return void
      */
-    public function bootProviders()
+    public function bootProviders(): void
     {
         foreach ($this->loadedProviders as $provider) {
             if (method_exists($provider, 'boot')) {
@@ -99,11 +99,10 @@ class Application extends Container
     /**
      * Register the events dispatcher.
      */
-    protected function registerEvent()
+    protected function registerEvent(): void
     {
         $this->singleton('events', function ($container) {
             return new \Illuminate\Events\Dispatcher($container);
         });
-    }
     }
 }

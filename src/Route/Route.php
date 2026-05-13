@@ -183,7 +183,7 @@ class Route extends IlluminateRoute {
 	 *
 	 * @return bool
 	 */
-	public function matches( Request $request, $includingMethod = true ) {
+	public function matches( Request $request, bool $includingMethod = true ): bool {
 		// If this route uses a WordPress conditional tag
 		if ( $this->condition() ) {
 			// Loop trough every validator and if the route passes, return true else false.
@@ -261,13 +261,18 @@ class Route extends IlluminateRoute {
 	 *
 	 * @return mixed|string
 	 */
-	public function getRewriteRuleRegex() {
+	public function getRewriteRuleRegex(): string {
 		// Get the regex of the compiled route
 		$routeRegex = $this->getCompiled()->getRegex();
-		// Remove the first part (#^/) of the regex because WordPress adds this already by itself
-		$routeRegex = preg_replace( '/^\#\^\//', '^', $routeRegex );
-		// Remove the modifiers of the regex because WordPress adds this already by itself
-		$routeRegex = preg_replace( '/\$\#.*$/', '$', $routeRegex );
+
+		// Detect the delimiter used by Symfony (usually # or ~)
+		$delimiter = substr( $routeRegex, 0, 1 );
+
+		// Remove the first part of the regex (e.g., #^/)
+		$routeRegex = preg_replace( '/^' . preg_quote( $delimiter, '/' ) . '\^\//', '^', $routeRegex );
+
+		// Remove the modifiers of the regex (e.g., $#sD)
+		$routeRegex = preg_replace( '/\$' . preg_quote( $delimiter, '/' ) . '[a-z]*$/i', '$', $routeRegex );
 
 		return $routeRegex;
 	}

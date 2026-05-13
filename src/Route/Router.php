@@ -28,7 +28,7 @@ class Router extends IlluminateRouter
      * @param  mixed        $action
      * @return \Illuminate\Routing\Route
      */
-    public function newRoute($methods, $uri, $action)
+    protected function newRoute($methods, $uri, $action): Route
     {
         return (new Route($methods, $uri, $action))
             ->setRouter($this)
@@ -41,7 +41,7 @@ class Router extends IlluminateRouter
      * @param  \Illuminate\Http\Request $request
      * @return \Wenprise\Mvc\Route\Route
      */
-    protected function findRoute($request)
+    protected function findRoute($request): Route
     {
         $route = parent::findRoute($request);
 

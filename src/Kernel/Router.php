@@ -33,7 +33,7 @@ class Router extends BaseRouter
      * @param  \Illuminate\Http\Response  $response
      * @return void
      */
-    protected function terminateMiddleware(Request $request, $response)
+    protected function terminateMiddleware(Request $request, $response): void
     {
 	    $route = $this->findRoute($request);
         $middlewares = array_merge(
