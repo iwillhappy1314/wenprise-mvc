@@ -144,6 +144,8 @@ class App
         foreach ($providers as $provider) {
             $this->container->register($provider);
         }
+
+        $this->container->bootProviders();
     }
 
 
@@ -191,7 +193,7 @@ class App
 
             // 因为 WordPress 已经发送了headers，所以在这里，我们只发送内容
             $response->sendContent();
-            die();
+            exit;
         } catch (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $exception) {
             /*
              * 退回到 WordPress 模版

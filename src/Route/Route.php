@@ -49,7 +49,6 @@ class Route extends IlluminateRoute {
 		'paged'           => 'is_paged',
 		'postTypeArchive' => 'is_post_type_archive',
 		'search'          => 'is_search',
-		'subpage'         => 'wprs_is_subpage',
 		'single'          => 'is_single',
 		'sticky'          => 'is_sticky',
 		'singular'        => 'is_singular',

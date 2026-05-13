@@ -24,6 +24,7 @@ class Application extends Container
     public function __construct()
     {
         $this->registerApplication();
+        $this->registerEvent();
     }
 
     /**
@@ -75,11 +76,34 @@ class Application extends Container
             return;
         }
 
-        $this->loadedProviders[$providerName] = true;
+        $this->loadedProviders[$providerName] = $provider;
         $provider->register();
+    }
 
-        if (method_exists($provider, 'boot')) {
-            $provider->boot();
+
+    /**
+     * Boot the application's service providers.
+     *
+     * @return void
+     */
+    public function bootProviders()
+    {
+        foreach ($this->loadedProviders as $provider) {
+            if (method_exists($provider, 'boot')) {
+                $provider->boot();
+            }
         }
+    }
+
+
+    /**
+     * Register the events dispatcher.
+     */
+    protected function registerEvent()
+    {
+        $this->singleton('events', function ($container) {
+            return new \Illuminate\Events\Dispatcher($container);
+        });
+    }
     }
 }

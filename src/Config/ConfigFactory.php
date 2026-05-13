@@ -11,6 +11,13 @@ class ConfigFactory implements IConfig
      */
     protected $finder;
 
+    /**
+     * Cache for loaded config files.
+     *
+     * @var array
+     */
+    protected $cache = [];
+
     public function __construct(ConfigFinder $finder)
     {
         $this->finder = $finder;
@@ -19,24 +26,39 @@ class ConfigFactory implements IConfig
     /**
      * Return all or specific property from a config file.
      *
-     * @param string $name The config file name or its property full name.
+     * @param string $name    The config file name or its property full name.
+     * @param mixed  $default Default value if not found.
      *
      * @return mixed
      */
-    public function get($name)
+    public function get($name, $default = null)
     {
-        if (strpos($name, '.') !== false) {
-            list($name, $property) = explode('.', $name);
+        $parts = explode('.', $name);
+        $file  = array_shift($parts);
+
+        if ( ! isset($this->cache[$file])) {
+            try {
+                $path               = $this->finder->find($file);
+                $this->cache[$file] = include $path;
+            } catch (\Exception $e) {
+                return $default;
+            }
         }
 
-        $path = $this->finder->find($name);
-        $properties = include $path;
+        $config = $this->cache[$file];
 
-        // Looking for single property
-        if (isset($property) && isset($properties[$property])) {
-            return $properties[$property];
+        if (empty($parts)) {
+            return $config;
         }
 
-        return $properties;
+        foreach ($parts as $part) {
+            if (isset($config[$part])) {
+                $config = $config[$part];
+            } else {
+                return $default;
+            }
+        }
+
+        return $config;
     }
 }

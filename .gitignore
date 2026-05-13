@@ -3,3 +3,4 @@ composer.phar
 .idea/
 .claude/
 composer.lock
+.DS_Store
