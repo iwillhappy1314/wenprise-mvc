@@ -183,7 +183,7 @@ class Route extends IlluminateRoute {
 	 *
 	 * @return bool
 	 */
-	public function matches( Request $request, bool $includingMethod = true ): bool {
+	public function matches( Request $request, $includingMethod = true ) {
 		// If this route uses a WordPress conditional tag
 		if ( $this->condition() ) {
 			// Loop trough every validator and if the route passes, return true else false.
