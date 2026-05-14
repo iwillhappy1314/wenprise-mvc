@@ -28,7 +28,7 @@ class Router extends IlluminateRouter
      * @param  mixed        $action
      * @return \Illuminate\Routing\Route
      */
-    protected function newRoute($methods, $uri, $action): Route
+    public function newRoute($methods, $uri, $action): Route
     {
         return (new Route($methods, $uri, $action))
             ->setRouter($this)
